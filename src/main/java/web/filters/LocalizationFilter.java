@@ -5,6 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * The type Localization filter.
+ */
 public class LocalizationFilter implements Filter {
     private static final String LOCALE = "locale";
     private static final String BUNDLE = "bundle";

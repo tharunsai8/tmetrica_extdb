@@ -15,6 +15,9 @@ import model.service.UserService;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * The type Order dao.
+ */
 public class OrderDao extends AbstractJDBCDao<Order> {
     private final String ID = "id";
     private final String ACTION = "action";
@@ -25,6 +28,9 @@ public class OrderDao extends AbstractJDBCDao<Order> {
     private ActivityService activityService;
     private UserService userService;
 
+    /**
+     * Instantiates a new Order dao.
+     */
     public OrderDao() {
         activityService = (ActivityService) ServiceFactory.getService(ServiceType.ACTIVITY);
         userService = (UserService) ServiceFactory.getService(ServiceType.USERS);
@@ -55,6 +61,12 @@ public class OrderDao extends AbstractJDBCDao<Order> {
                 });
     }
 
+    /**
+     * Create and return order.
+     *
+     * @param entity the entity
+     * @return the order
+     */
     public Order createAndReturn(Order entity) {
         long id = createUpdateWithReturn(bundle.getString("order.create"),
                 ps -> {

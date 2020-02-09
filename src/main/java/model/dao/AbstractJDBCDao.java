@@ -12,19 +12,43 @@ import java.util.List;
 /**
  * Abstract class for all JDBC CRUD DAO classes
  *
+ * @param <T> the type parameter
  * @author Vladimir Petrenko
  */
 public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
 
+    /**
+     * Gets by id.
+     *
+     * @param query           the query
+     * @param statementMapper the statement mapper
+     * @param mapper          the mapper
+     * @return the by id
+     */
     public T getById(String query, StatementMapper<T> statementMapper, EntityMapper<T> mapper) {
         return getT(query, statementMapper, mapper);
     }
 
 
+    /**
+     * Gets by name.
+     *
+     * @param query           the query
+     * @param statementMapper the statement mapper
+     * @param mapper          the mapper
+     * @return the by name
+     */
     public T getByName(String query, StatementMapper<T> statementMapper, EntityMapper<T> mapper) {
         return getT(query, statementMapper, mapper);
     }
 
+    /**
+     * Create update with return long.
+     *
+     * @param query           the query
+     * @param statementMapper the statement mapper
+     * @return the long
+     */
     public long createUpdateWithReturn(String query, StatementMapper<T> statementMapper) {
         try (PreparedStatement preparedStatement = DataSourceFactory.getPreparedStatementWithReturning(query)) {
             statementMapper.map(preparedStatement);
@@ -43,6 +67,13 @@ public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
         return -1;
     }
 
+    /**
+     * Gets all.
+     *
+     * @param query  the query
+     * @param mapper the mapper
+     * @return the all
+     */
     public List<T> getAll(String query, EntityMapper<T> mapper) {
         List<T> result = new ArrayList<>();
 
@@ -86,6 +117,13 @@ public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
         return result;
     }
 
+    /**
+     * Create update boolean.
+     *
+     * @param query           the query
+     * @param statementMapper the statement mapper
+     * @return the boolean
+     */
     public boolean createUpdate(String query, StatementMapper<T> statementMapper) {
         try (PreparedStatement preparedStatement = DataSourceFactory.getPreparedStatement(query)) {
             statementMapper.map(preparedStatement);
@@ -105,5 +143,10 @@ public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
         preparedStatement.getConnection().close();
     }
 
+    /**
+     * Gets mapper.
+     *
+     * @return the mapper
+     */
     public abstract EntityMapper<T> getMapper();
 }

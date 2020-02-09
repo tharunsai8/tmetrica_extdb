@@ -12,9 +12,15 @@ import web.data.Page;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * The type Login command.
+ */
 public class LoginCommand extends GetPostCommand {
     private UserService userService;
 
+    /**
+     * Instantiates a new Login command.
+     */
     public LoginCommand() {
         userService = (UserService) ServiceFactory.getService(ServiceType.USERS);
     }

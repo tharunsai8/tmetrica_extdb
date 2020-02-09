@@ -10,14 +10,38 @@ import java.sql.Statement;
 import java.util.Properties;
 
 
+/**
+ * The type Data source factory.
+ */
 public class DataSourceFactory {
 
+    /**
+     * The constant DB_PROPERTIES.
+     */
     public static final String DB_PROPERTIES = "/database/db.properties";
+    /**
+     * The constant DB_HOST.
+     */
     public static final String DB_HOST = "db.host";
+    /**
+     * The constant DB_NAME.
+     */
     public static final String DB_NAME = "db.name";
+    /**
+     * The constant DB_URL.
+     */
     public static final String DB_URL = "db.url";
+    /**
+     * The constant DB_PORT.
+     */
     public static final String DB_PORT = "db.port";
+    /**
+     * The constant DB_USERNAME.
+     */
     public static final String DB_USERNAME = "db.login";
+    /**
+     * The constant DB_PASSWORD.
+     */
     public static final String DB_PASSWORD = "db.password";
 
     private static final DataSourceFactory INSTANCE = new DataSourceFactory();
@@ -44,6 +68,11 @@ public class DataSourceFactory {
         }
     }
 
+    /**
+     * Gets connection.
+     *
+     * @return the connection
+     */
     public static Connection getConnection() {
         Connection connection = null;
         try {
@@ -54,10 +83,24 @@ public class DataSourceFactory {
         return connection;
     }
 
+    /**
+     * Gets prepared statement.
+     *
+     * @param query the query
+     * @return the prepared statement
+     * @throws SQLException the sql exception
+     */
     public static PreparedStatement getPreparedStatement(String query) throws SQLException {
         return getConnection().prepareStatement(query);
     }
 
+    /**
+     * Gets prepared statement with returning.
+     *
+     * @param query the query
+     * @return the prepared statement with returning
+     * @throws SQLException the sql exception
+     */
     public static PreparedStatement getPreparedStatementWithReturning(String query) throws SQLException {
         return getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
     }

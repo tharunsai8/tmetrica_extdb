@@ -11,12 +11,18 @@ import model.service.UserService;
 
 import java.util.List;
 
+/**
+ * The type Activity service.
+ */
 public class ActivityServiceImpl implements ActivityService {
 
     private ActivityDao activityDao;
 
     private UserService userService;
 
+    /**
+     * Instantiates a new Activity service.
+     */
     public ActivityServiceImpl() {
         activityDao = new ActivityDao();
         userService = (UserService) ServiceFactory.getService(ServiceType.USERS);
@@ -94,6 +100,6 @@ public class ActivityServiceImpl implements ActivityService {
         return activityDao.getPageCount(userEmail) % postOnPage == 0 ? activityDao.getPageCount(userEmail) / postOnPage :
                 activityDao.getPageCount(userEmail) / postOnPage + 1;
     }
-
-    //TODO add pagination https://github.com/SweetSquid/Tax-Return/blob/master/src/main/java/com/finalproject/model/service/TaxReturnService.java
 }
+
+//TODO add pagination

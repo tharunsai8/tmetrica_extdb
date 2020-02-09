@@ -12,6 +12,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * The type User dao.
+ */
 public class UserDao extends AbstractJDBCDao<User> {
     private final String ID = "id";
     private final String EMAIL = "email";
@@ -52,6 +55,12 @@ public class UserDao extends AbstractJDBCDao<User> {
         return false;
     }
 
+    /**
+     * Gets by email.
+     *
+     * @param email the email
+     * @return the by email
+     */
     public User getByEmail(String email) {
         return getById(bundle.getString("user.get.email"),
                 ps -> ps.setString(1, email),

@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
+/**
+ * The type Dispatcher servlet.
+ */
 @WebServlet(value = "/app/*")
 public class DispatcherServlet extends HttpServlet {
 

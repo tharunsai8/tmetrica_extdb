@@ -9,6 +9,9 @@ import model.domain.enums.ActivityStatus;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * The type Activity dao.
+ */
 public class ActivityDao extends AbstractJDBCDao<Activity> {
     private final String ID = "id";
     private final String NAME = "name";
@@ -45,6 +48,12 @@ public class ActivityDao extends AbstractJDBCDao<Activity> {
                 });
     }
 
+    /**
+     * Create and return activity.
+     *
+     * @param activity the activity
+     * @return the activity
+     */
     public Activity createAndReturn(Activity activity) {
         long id = createUpdateWithReturn(bundle.getString("activity.create"),
                 ps -> {
@@ -65,6 +74,13 @@ public class ActivityDao extends AbstractJDBCDao<Activity> {
                 });
     }
 
+    /**
+     * Add user to activity boolean.
+     *
+     * @param activity the activity
+     * @param user     the user
+     * @return the boolean
+     */
     public boolean addUserToActivity(Activity activity, User user) {
         return createUpdate(bundle.getString("activity.add.user"),
                 ps -> {
@@ -91,6 +107,13 @@ public class ActivityDao extends AbstractJDBCDao<Activity> {
         };
     }
 
+    /**
+     * Delete user from activity boolean.
+     *
+     * @param activity the activity
+     * @param user     the user
+     * @return the boolean
+     */
     public boolean deleteUserFromActivity(Activity activity, User user) {
         return createUpdate(bundle.getString("activity.delete.user"),
                 ps -> {
@@ -99,14 +122,36 @@ public class ActivityDao extends AbstractJDBCDao<Activity> {
                 });
     }
 
+    /**
+     * Gets in range.
+     *
+     * @param currentPageInt the current page int
+     * @param postOnPage     the post on page
+     * @param userEmail      the user email
+     * @return the in range
+     */
     public List<Activity> getInRange(int currentPageInt, int postOnPage, String userEmail) {
         return null;
     }
 
+    /**
+     * Gets in available range.
+     *
+     * @param currentPageInt the current page int
+     * @param postOnPage     the post on page
+     * @param userEmail      the user email
+     * @return the in available range
+     */
     public List<Activity> getInAvailableRange(int currentPageInt, int postOnPage, String userEmail) {
         return null;
     }
 
+    /**
+     * Gets page count.
+     *
+     * @param userEmail the user email
+     * @return the page count
+     */
     public int getPageCount(String userEmail) {
         return 0;
     }

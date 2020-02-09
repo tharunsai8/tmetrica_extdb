@@ -9,9 +9,18 @@ import model.service.impl.UserServiceImpl;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The type Service factory.
+ */
 public class ServiceFactory {
     private static Map<ServiceType, Service> serviceMap = new HashMap<>();
 
+    /**
+     * Gets service.
+     *
+     * @param type the type
+     * @return the service
+     */
     public static Service getService(ServiceType type) {
         if (serviceMap.get(type) == null) {
             putService(type);

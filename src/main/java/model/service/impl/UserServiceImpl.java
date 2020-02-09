@@ -8,10 +8,16 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
 
+/**
+ * The type User service.
+ */
 public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
 
+    /**
+     * Instantiates a new User service.
+     */
     public UserServiceImpl() {
         userDao = new UserDao();
     }
@@ -54,7 +60,6 @@ public class UserServiceImpl implements UserService {
         } else return false;
     }
 
-    //TODO try to use DaoFactory and use userDao.getById as on 59 line
 
     @Override
     public User getByEmail(String email) {
