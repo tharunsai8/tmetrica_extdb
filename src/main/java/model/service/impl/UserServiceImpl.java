@@ -4,6 +4,7 @@ import model.dao.impl.UserDao;
 import model.domain.entity.User;
 import model.domain.exceptions.NotUniqueEmailException;
 import model.service.UserService;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
 
@@ -58,6 +59,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getByEmail(String email) {
         return userDao.getByEmail(email);
+    }
+
+    @Override
+    public User validateUser(String email, String password) {
+        User user = userDao.getByEmail(email);
+        return (!BCrypt.checkpw(user.getPassword(), password)) ? user : null;
     }
 //
 //    public User getByEmail(String email) {

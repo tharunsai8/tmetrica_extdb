@@ -1,6 +1,7 @@
 package web.command;
 
 import web.command.impl.HomeCommand;
+import web.command.impl.LoginCommand;
 import web.command.impl.NotFoundCommand;
 
 import java.util.HashMap;
@@ -17,6 +18,8 @@ public class CommandFactory {
 
         getCommandMap.put("/", new HomeCommand());
         postCommandMap.put("/", new HomeCommand());
+        getCommandMap.put("/login", new LoginCommand());
+        postCommandMap.put("/login", new LoginCommand());
     }
 
     public static Command getCommand(String path, String method) {

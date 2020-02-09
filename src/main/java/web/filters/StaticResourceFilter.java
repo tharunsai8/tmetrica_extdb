@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class StaticResourceFilter implements Filter {
     private static final String RESOURCES_PATH = "/resources/";
-    private static final String UI_PATH = "/ui/";
+    private static final String VIEW_PATH = "/view/";
     private static final String APP_PATH = "/app";
 
     @Override
@@ -37,7 +37,7 @@ public class StaticResourceFilter implements Filter {
     }
 
     private boolean shouldBeSkipped(String path) {
-        return path.startsWith(RESOURCES_PATH) || path.startsWith(UI_PATH) || path.startsWith(APP_PATH);
+        return path.startsWith(RESOURCES_PATH) || path.startsWith(VIEW_PATH) || path.startsWith(APP_PATH);
     }
 
 }

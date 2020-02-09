@@ -23,6 +23,7 @@ public class User {
         this.roles = roles;
     }
 
+
     public long getId() {
         return id;
     }

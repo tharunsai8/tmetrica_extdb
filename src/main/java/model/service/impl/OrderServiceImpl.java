@@ -16,7 +16,7 @@ import model.service.UserService;
 import java.util.Date;
 import java.util.List;
 
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl implements OrderService{
 
     private OrderDao orderDao;
 
@@ -123,6 +123,7 @@ public class OrderServiceImpl implements OrderService {
         }
         return false;
     }
+
 
     //TODO Add pagination
 }

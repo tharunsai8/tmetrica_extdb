@@ -4,11 +4,8 @@ import model.dao.AbstractJDBCDao;
 import model.dao.EntityMapper;
 import model.domain.entity.User;
 import model.domain.enums.Role;
-import model.persistance.DataSourceFactory;
+import org.mindrot.jbcrypt.BCrypt;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -37,28 +34,22 @@ public class UserDao extends AbstractJDBCDao<User> {
 
     @Override
     public boolean create(User user) {
-        boolean result = createUpdate((bundle.getString("user.add")),
+        long id = createUpdateWithReturn((bundle.getString("user.add")),
                 (ps -> {
                     ps.setString(1, user.getEmail());
-                    ps.setString(2, user.getPassword());
+                    ps.setString(2, BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)));
                     ps.setString(3, user.getName());
                 }));
-        long userId = 0;
-        try (PreparedStatement preparedStatement = DataSourceFactory.getPreparedStatement("SELECT id FROM users ORDER BY ID DESC LIMIT 1");) {
-            ResultSet rs = preparedStatement.executeQuery();
-            rs.next();
-            userId = rs.getLong(1);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (id > 0) {
+            user.getRoles().forEach(role ->
+                    createUpdate(bundle.getString("role.add"), ps -> {
+                        ps.setLong(1, id);
+                        ps.setObject(2, role);
+                    })
+            );
+            return true;
         }
-        long finalUserId = userId;
-        user.getRoles().forEach(role ->
-                createUpdate(bundle.getString("role.add"), ps -> {
-                    ps.setLong(1, finalUserId);
-                    ps.setObject(2, role);
-                })
-        );
-        return result;
+        return false;
     }
 
     public User getByEmail(String email) {

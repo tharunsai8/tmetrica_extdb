@@ -18,4 +18,6 @@ public interface UserService extends Service {
     boolean isExist(User user);
 
     User getByEmail(String email);
+
+    User validateUser(String email, String password);
 }
