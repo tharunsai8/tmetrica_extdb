@@ -60,6 +60,11 @@ public class UserServiceImpl implements UserService {
         } else return false;
     }
 
+    @Override
+    public List<User> getAllByActivity(long activityId) {
+        return userDao.getAllByActivity(activityId);
+    }
+
 
     @Override
     public User getByEmail(String email) {
@@ -69,7 +74,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User validateUser(String email, String password) {
         User user = userDao.getByEmail(email);
-        return (!BCrypt.checkpw(user.getPassword(), password)) ? user : null;
+        return (BCrypt.checkpw(password, user.getPassword())) ? user : null;
     }
 //
 //    public User getByEmail(String email) {

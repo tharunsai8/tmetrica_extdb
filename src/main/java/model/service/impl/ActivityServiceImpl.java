@@ -50,6 +50,16 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
+    public List<Activity> getActiveActivityByUser(long userId) {
+        return activityDao.getActiveActivityByUserId(userId);
+    }
+
+    @Override
+    public List<Activity> getAllActivityByUser(long userId) {
+        return activityDao.getAllUsersActivity(userId);
+    }
+
+    @Override
     public Activity createAndReturn(Activity activity, long userId) {
         activity.setStatus(ActivityStatus.SUSPENDED);
         return activityDao.createAndReturn(activity);
@@ -88,6 +98,7 @@ public class ActivityServiceImpl implements ActivityService {
         int currentPageInt = currentPage != null ? Integer.parseInt(currentPage) : 1;
         return activityDao.getInRange(currentPageInt, postOnPage, userEmail);
     }
+
 
     @Override
     public List<Activity> getAvailableActivityList(String currentPage, String userEmail, int postOnPage) {

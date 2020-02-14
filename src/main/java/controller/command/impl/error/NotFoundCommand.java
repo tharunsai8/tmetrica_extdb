@@ -1,8 +1,8 @@
-package web.command.impl;
+package controller.command.impl.error;
 
-import web.command.Command;
-import web.constants.ViewPathConstant;
-import web.data.Page;
+import controller.command.Command;
+import controller.constants.ViewPathConstant;
+import controller.data.Page;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

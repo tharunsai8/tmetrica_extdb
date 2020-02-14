@@ -1,4 +1,4 @@
-package web.constants;
+package controller.constants;
 
 /**
  * The type Attribute name.

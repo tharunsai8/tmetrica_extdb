@@ -33,6 +33,10 @@ public interface ActivityService extends Service {
      */
     boolean create(Activity activity, long userId);
 
+    List<Activity> getActiveActivityByUser(long userId);
+
+    List<Activity> getAllActivityByUser(long userId);
+
     /**
      * Create and return activity.
      *

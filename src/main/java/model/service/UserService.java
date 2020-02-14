@@ -55,6 +55,8 @@ public interface UserService extends Service {
      */
     boolean isExist(User user);
 
+    List<User> getAllByActivity(long activityId);
+
     /**
      * Gets by email.
      *

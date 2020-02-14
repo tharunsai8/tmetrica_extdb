@@ -1,13 +1,13 @@
-package web.command.impl;
+package controller.command.impl.auth;
 
 import model.domain.entity.User;
 import model.factory.ServiceFactory;
 import model.factory.ServiceType;
 import model.service.UserService;
-import web.command.GetPostCommand;
-import web.constants.AttributeName;
-import web.constants.ViewPathConstant;
-import web.data.Page;
+import controller.command.GetPostCommand;
+import controller.constants.AttributeName;
+import controller.constants.ViewPathConstant;
+import controller.data.Page;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -36,7 +36,6 @@ public class LoginCommand extends GetPostCommand {
         String email = request.getParameter("username");
         String password = request.getParameter("password");
         User user = userService.validateUser(email, password);
-
         if (user != null) {
             session.setAttribute("user", user);
             return successfulLogin(request);
@@ -50,7 +49,6 @@ public class LoginCommand extends GetPostCommand {
     }
 
     private Page successfulLogin(HttpServletRequest request) {
-        request.setAttribute(AttributeName.LOGIN_ERROR, false);
         return new Page(ViewPathConstant.HOME, true);
     }
 }

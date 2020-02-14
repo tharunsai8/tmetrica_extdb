@@ -55,13 +55,15 @@ public class ActivityDao extends AbstractJDBCDao<Activity> {
      * @return the activity
      */
     public Activity createAndReturn(Activity activity) {
+        System.out.println(activity.getOpeningTime());
+        System.out.println(activity.getOpeningTime().getTime());
+        System.out.println(new java.sql.Timestamp(activity.getOpeningTime().getTime()));
         long id = createUpdateWithReturn(bundle.getString("activity.create"),
                 ps -> {
                     ps.setString(1, activity.getName());
                     ps.setObject(2, new java.sql.Timestamp(activity.getOpeningTime().getTime()));
                     ps.setObject(3, activity.getStatus().toString());
                 });
-        System.out.println(id);
         return (id > 0) ? getById(id) : null;
     }
 
@@ -91,7 +93,10 @@ public class ActivityDao extends AbstractJDBCDao<Activity> {
 
     @Override
     public boolean remove(Activity activity) {
-        return false;
+        return createUpdate(bundle.getString("activity.delete"),
+                ps -> {
+                    ps.setLong(1, activity.getId());
+                });
     }
 
     @Override
@@ -100,8 +105,8 @@ public class ActivityDao extends AbstractJDBCDao<Activity> {
             return new Activity(
                     resultSet.getLong(ID),
                     resultSet.getString(NAME),
-                    resultSet.getTime(OPENING_TIME),
-                    resultSet.getTime(CLOSING_TIME),
+                    resultSet.getTimestamp(OPENING_TIME),
+                    resultSet.getTimestamp(CLOSING_TIME),
                     ActivityStatus.valueOf(resultSet.getString(STATUS))
             );
         };
@@ -144,6 +149,18 @@ public class ActivityDao extends AbstractJDBCDao<Activity> {
      */
     public List<Activity> getInAvailableRange(int currentPageInt, int postOnPage, String userEmail) {
         return null;
+    }
+
+    public List<Activity> getActiveActivityByUserId(long id) {
+        return getAllWithCondition(bundle.getString("activity.get.all.active"), getMapper(), ps -> {
+            ps.setLong(1, id);
+        });
+    }
+
+    public List<Activity> getAllUsersActivity(long id) {
+        return getAllWithCondition(bundle.getString("activity.get.all"), getMapper(), ps -> {
+            ps.setLong(1, id);
+        });
     }
 
     /**

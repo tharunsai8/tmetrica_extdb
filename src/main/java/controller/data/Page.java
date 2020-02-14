@@ -1,4 +1,4 @@
-package web.data;
+package controller.data;
 
 /**
  * The type Page.

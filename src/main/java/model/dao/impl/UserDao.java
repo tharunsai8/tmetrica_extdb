@@ -72,6 +72,12 @@ public class UserDao extends AbstractJDBCDao<User> {
         return false;
     }
 
+    public List<User> getAllByActivity(long activityId) {
+        return getAllWithCondition(bundle.getString("users.get.by.activity"), getMapper(), ps -> {
+            ps.setLong(1, activityId);
+        });
+    }
+
     @Override
     public boolean remove(User user) {
         return false;
@@ -92,4 +98,6 @@ public class UserDao extends AbstractJDBCDao<User> {
             );
         };
     }
+
+
 }

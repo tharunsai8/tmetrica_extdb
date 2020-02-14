@@ -1,8 +1,14 @@
-package web.command;
+package controller.command;
 
-import web.command.impl.HomeCommand;
-import web.command.impl.LoginCommand;
-import web.command.impl.NotFoundCommand;
+import controller.command.impl.HomeCommand;
+import controller.command.impl.activity.AvailableActivityCommand;
+import controller.command.impl.activity.UserActivitiesCommand;
+import controller.command.impl.auth.LoginCommand;
+import controller.command.impl.auth.LogoutCommand;
+import controller.command.impl.error.NotFoundCommand;
+import controller.command.impl.orders.DeleteOrderCommand;
+import controller.command.impl.orders.JoinOrderCommand;
+import controller.command.impl.orders.NewOrderCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,9 +26,15 @@ public class CommandFactory {
     static {
 
         getCommandMap.put("/", new HomeCommand());
-        postCommandMap.put("/", new HomeCommand());
+        getCommandMap.put("/index", new HomeCommand());
         getCommandMap.put("/login", new LoginCommand());
         postCommandMap.put("/login", new LoginCommand());
+        getCommandMap.put("/activities", new AvailableActivityCommand());
+        postCommandMap.put("/logout", new LogoutCommand());
+        postCommandMap.put("/createactivity", new NewOrderCommand());
+        postCommandMap.put("/join", new JoinOrderCommand());
+        getCommandMap.put("/myactivity", new UserActivitiesCommand());
+        postCommandMap.put("/deleteactivity", new DeleteOrderCommand());
     }
 
     /**

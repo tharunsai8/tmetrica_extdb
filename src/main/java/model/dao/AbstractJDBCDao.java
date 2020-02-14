@@ -96,6 +96,28 @@ public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
         return result;
     }
 
+    public List<T> getAllWithCondition(String query, EntityMapper<T> mapper, StatementMapper<T> statementMapper) {
+        List<T> result = new ArrayList<>();
+
+        try (PreparedStatement preparedStatement = DataSourceFactory.getPreparedStatement(query)) {
+            statementMapper.map(preparedStatement);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                T entity = mapper.map(resultSet);
+
+                result.add(entity);
+            }
+
+            closeConnection(preparedStatement);
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
     private T getT(String query, StatementMapper<T> statementMapper, EntityMapper<T> mapper) {
         T result = null;
 
@@ -149,4 +171,6 @@ public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
      * @return the mapper
      */
     public abstract EntityMapper<T> getMapper();
+
+
 }

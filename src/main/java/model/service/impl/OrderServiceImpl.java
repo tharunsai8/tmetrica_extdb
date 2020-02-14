@@ -118,15 +118,18 @@ public class OrderServiceImpl implements OrderService{
     }
 
     private void prepareDeleteOrderToApprove(Order order, Activity activity, User user) {
+        System.out.println("before delete user from activity");
         activityService.deleteUserFromActivity(activity, user);
         order.setActivity(activityService.getById(activity.getId()));
     }
 
     private boolean lastUserInActivity(Activity activity) {
-        if (activity.getUsers().size() <= 1) {
+        if (userService.getAllByActivity(activity.getId()).size() <= 1) {
+            System.out.println("less or = then 1 need to delete activity");
             activityService.delete(activity);
             return true;
         }
+        System.out.println("more then 1");
         return false;
     }
 

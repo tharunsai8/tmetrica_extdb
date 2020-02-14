@@ -1,6 +1,6 @@
-package web.command;
+package controller.command;
 
-import web.data.Page;
+import controller.data.Page;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
