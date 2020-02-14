@@ -1,13 +1,13 @@
 package controller.command.impl.auth;
 
-import model.domain.entity.User;
-import model.factory.ServiceFactory;
-import model.factory.ServiceType;
-import model.service.UserService;
 import controller.command.GetPostCommand;
 import controller.constants.AttributeName;
 import controller.constants.ViewPathConstant;
 import controller.data.Page;
+import model.domain.entity.User;
+import model.factory.ServiceFactory;
+import model.factory.ServiceType;
+import model.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -38,7 +38,7 @@ public class LoginCommand extends GetPostCommand {
         User user = userService.validateUser(email, password);
         if (user != null) {
             session.setAttribute("user", user);
-            return successfulLogin(request);
+            return new Page(ViewPathConstant.HOME, true);
         }
         return failedLogin(request);
     }
@@ -48,7 +48,4 @@ public class LoginCommand extends GetPostCommand {
         return new Page(ViewPathConstant.LOGIN, true);
     }
 
-    private Page successfulLogin(HttpServletRequest request) {
-        return new Page(ViewPathConstant.HOME, true);
-    }
 }

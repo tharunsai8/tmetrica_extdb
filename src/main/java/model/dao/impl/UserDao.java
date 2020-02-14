@@ -72,6 +72,12 @@ public class UserDao extends AbstractJDBCDao<User> {
         return false;
     }
 
+    /**
+     * Gets all by activity.
+     *
+     * @param activityId the activity id
+     * @return the all by activity
+     */
     public List<User> getAllByActivity(long activityId) {
         return getAllWithCondition(bundle.getString("users.get.by.activity"), getMapper(), ps -> {
             ps.setLong(1, activityId);

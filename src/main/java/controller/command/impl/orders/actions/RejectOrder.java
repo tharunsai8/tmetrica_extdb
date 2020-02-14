@@ -1,10 +1,9 @@
-package controller.command.impl.orders;
+package controller.command.impl.orders.actions;
 
 import controller.command.Command;
 import controller.constants.ViewPathConstant;
 import controller.data.Page;
 import controller.util.AuthUtils;
-import model.domain.entity.Order;
 import model.domain.entity.User;
 import model.domain.enums.Role;
 import model.factory.ServiceFactory;
@@ -15,10 +14,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-public class DeleteOrderCommand implements Command {
+/**
+ * The type Reject order.
+ */
+public class RejectOrder implements Command {
     private OrderService orderService;
 
-    public DeleteOrderCommand() {
+
+    /**
+     * Instantiates a new Reject order.
+     */
+    public RejectOrder() {
         this.orderService = (OrderService) ServiceFactory.getService(ServiceType.ORDERS);
     }
 
@@ -27,16 +33,14 @@ public class DeleteOrderCommand implements Command {
         User user = AuthUtils.isAuthenticated(request);
         if (user == null) {
             return new Page(ViewPathConstant.LOGIN, true);
-        }
-        createOrder(request, user.getEmail());
-        return new Page(ViewPathConstant.ACTIVITY, true);
+        } else if (!AuthUtils.hasAuthority(request, Role.ADMIN))
+            return new Page(ViewPathConstant.ERROR_403, true);
+        reject(request);
+        return new Page(ViewPathConstant.ORDERS, true);
     }
 
-    private void createOrder(HttpServletRequest request, String email) {
-        long activityId = Long.parseLong(request.getParameter("activityId"));
-        Order order = orderService.createDeleteActivityOrder(email, activityId);
-        if (AuthUtils.hasAuthority(request, Role.ADMIN)) {
-            orderService.approveOrder(order);
-        }
+    private void reject(HttpServletRequest request) {
+        long orderId = Long.parseLong(request.getParameter("orderId"));
+        orderService.rejectOrder(orderService.getById(orderId));
     }
 }

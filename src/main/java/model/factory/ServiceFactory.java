@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * The type Service factory.
  */
-public class ServiceFactory {
+public final class ServiceFactory {
     private static Map<ServiceType, Service> serviceMap = new HashMap<>();
 
     /**

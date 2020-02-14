@@ -106,4 +106,24 @@ public class OrderDao extends AbstractJDBCDao<Order> {
                     OrderStatus.valueOf(rs.getString(STATUS)));
         };
     }
+
+    /**
+     * Gets all pending.
+     *
+     * @return the all pending
+     */
+    public List<Order> getAllPending() {
+        return getAll(bundle.getString("order.get.all.pendind"),
+                getMapper());
+    }
+
+    /**
+     * Gets all reviewed.
+     *
+     * @return the all reviewed
+     */
+    public List<Order> getAllReviewed() {
+        return getAll(bundle.getString("order.get.all.reviewed"),
+                getMapper());
+    }
 }

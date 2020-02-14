@@ -47,6 +47,16 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    public List<Order> getAllPending() {
+        return orderDao.getAllPending();
+    }
+
+    @Override
+    public List<Order> getAllReviewed() {
+        return orderDao.getAllReviewed();
+    }
+
+    @Override
     public Order createNewActivityOrder(String activityName, String email) {
         User user = userService.getByEmail(email);
         Activity activity = activityService.createAndReturn(new Activity(activityName, new Date(), ActivityStatus.SUSPENDED), user.getId());
@@ -97,7 +107,6 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public void rejectOrder(Order order) {
         Activity activity = order.getActivity();
-        User user = order.getUser();
         if (order.getAction().equals(OrderAction.CREATE)) {
             activityService.delete(activity);
         } else {
@@ -118,18 +127,15 @@ public class OrderServiceImpl implements OrderService{
     }
 
     private void prepareDeleteOrderToApprove(Order order, Activity activity, User user) {
-        System.out.println("before delete user from activity");
         activityService.deleteUserFromActivity(activity, user);
         order.setActivity(activityService.getById(activity.getId()));
     }
 
     private boolean lastUserInActivity(Activity activity) {
         if (userService.getAllByActivity(activity.getId()).size() <= 1) {
-            System.out.println("less or = then 1 need to delete activity");
             activityService.delete(activity);
             return true;
         }
-        System.out.println("more then 1");
         return false;
     }
 

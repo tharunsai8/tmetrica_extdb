@@ -24,6 +24,20 @@ public interface OrderService extends Service {
     List<Order> getAll();
 
     /**
+     * Gets all pending.
+     *
+     * @return the all pending
+     */
+    List<Order> getAllPending();
+
+    /**
+     * Gets all reviewed.
+     *
+     * @return the all reviewed
+     */
+    List<Order> getAllReviewed();
+
+    /**
      * Create new activity order order.
      *
      * @param activityName the activity name

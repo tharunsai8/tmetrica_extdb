@@ -55,6 +55,12 @@ public interface UserService extends Service {
      */
     boolean isExist(User user);
 
+    /**
+     * Gets all by activity.
+     *
+     * @param activityId the activity id
+     * @return the all by activity
+     */
     List<User> getAllByActivity(long activityId);
 
     /**

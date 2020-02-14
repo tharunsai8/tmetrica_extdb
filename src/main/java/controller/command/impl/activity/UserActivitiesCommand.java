@@ -14,9 +14,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * The type User activities command.
+ */
 public class UserActivitiesCommand implements Command {
     private ActivityService activityService;
 
+    /**
+     * Instantiates a new User activities command.
+     */
     public UserActivitiesCommand() {
         this.activityService = (ActivityService) ServiceFactory.getService(ServiceType.ACTIVITY);
     }

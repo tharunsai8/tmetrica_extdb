@@ -4,10 +4,7 @@ import model.dao.impl.ActivityDao;
 import model.domain.entity.Activity;
 import model.domain.entity.User;
 import model.domain.enums.ActivityStatus;
-import model.factory.ServiceFactory;
-import model.factory.ServiceType;
 import model.service.ActivityService;
-import model.service.UserService;
 
 import java.util.List;
 
@@ -18,14 +15,12 @@ public class ActivityServiceImpl implements ActivityService {
 
     private ActivityDao activityDao;
 
-    private UserService userService;
 
     /**
      * Instantiates a new Activity service.
      */
     public ActivityServiceImpl() {
         activityDao = new ActivityDao();
-        userService = (UserService) ServiceFactory.getService(ServiceType.USERS);
     }
 
     @Override
@@ -41,11 +36,6 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public boolean create(Activity activity, long userId) {
         activity.setStatus(ActivityStatus.SUSPENDED);
-        //Order order = new Order();
-        //order.setAction(OrderAction.CREATE);
-        //order.setActivity(activity);
-        //order.setUser(userService.getById(userId));
-        //  new OrderServiceImpl().create(order);
         return activityDao.create(activity);
     }
 

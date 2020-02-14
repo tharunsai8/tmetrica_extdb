@@ -65,7 +65,7 @@
                             bundle="${link}"
                             key="navbar.statistic"/></a>
                 </li>
-                <c:if test="{$admin}">
+                <c:if test="${admin}">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="${pageContext.request.contextPath}/orders"
                            id="navbarDropdown" role="button"
@@ -75,10 +75,11 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item"
-                               href="${pageContext.request.contextPath}/orders/active"><fmt:message
+                               href="${pageContext.request.contextPath}/orders"><fmt:message
                                     bundle="${link}"
                                     key="navbar.orders.pending"/></a>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/orders"><fmt:message
+                            <a class="dropdown-item"
+                               href="${pageContext.request.contextPath}/reviewedorders"><fmt:message
                                     bundle="${link}"
                                     key="navbar.orders.closed"/></a>
                         </div>

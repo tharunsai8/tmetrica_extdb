@@ -13,7 +13,6 @@ import java.util.List;
  * Abstract class for all JDBC CRUD DAO classes
  *
  * @param <T> the type parameter
- * @author Vladimir Petrenko
  */
 public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
 
@@ -60,7 +59,7 @@ public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
                     }
                 }
             }
-
+            closeConnection(preparedStatement);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -96,6 +95,14 @@ public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
         return result;
     }
 
+    /**
+     * Gets all with condition.
+     *
+     * @param query           the query
+     * @param mapper          the mapper
+     * @param statementMapper the statement mapper
+     * @return the all with condition
+     */
     public List<T> getAllWithCondition(String query, EntityMapper<T> mapper, StatementMapper<T> statementMapper) {
         List<T> result = new ArrayList<>();
 
@@ -123,7 +130,6 @@ public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
 
         try (PreparedStatement preparedStatement = DataSourceFactory.getPreparedStatement(query)) {
             statementMapper.map(preparedStatement);
-            ;
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     result = mapper.map(resultSet);

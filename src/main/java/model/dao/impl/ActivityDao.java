@@ -18,9 +18,6 @@ public class ActivityDao extends AbstractJDBCDao<Activity> {
     private final String OPENING_TIME = "opening_time";
     private final String CLOSING_TIME = "closing_time";
     private final String STATUS = "status";
-    private final String LOGS = "logs";
-    private final String USERS = "users";
-    private final String REGEX = ", ";
     private static ResourceBundle bundle = ResourceBundle.getBundle("database/queries");
 
 
@@ -55,9 +52,6 @@ public class ActivityDao extends AbstractJDBCDao<Activity> {
      * @return the activity
      */
     public Activity createAndReturn(Activity activity) {
-        System.out.println(activity.getOpeningTime());
-        System.out.println(activity.getOpeningTime().getTime());
-        System.out.println(new java.sql.Timestamp(activity.getOpeningTime().getTime()));
         long id = createUpdateWithReturn(bundle.getString("activity.create"),
                 ps -> {
                     ps.setString(1, activity.getName());
@@ -151,12 +145,24 @@ public class ActivityDao extends AbstractJDBCDao<Activity> {
         return null;
     }
 
+    /**
+     * Gets active activity by user id.
+     *
+     * @param id the id
+     * @return the active activity by user id
+     */
     public List<Activity> getActiveActivityByUserId(long id) {
         return getAllWithCondition(bundle.getString("activity.get.all.active"), getMapper(), ps -> {
             ps.setLong(1, id);
         });
     }
 
+    /**
+     * Gets all users activity.
+     *
+     * @param id the id
+     * @return the all users activity
+     */
     public List<Activity> getAllUsersActivity(long id) {
         return getAllWithCondition(bundle.getString("activity.get.all"), getMapper(), ps -> {
             ps.setLong(1, id);

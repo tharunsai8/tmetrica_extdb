@@ -1,14 +1,19 @@
-package controller.command;
+package controller.factory;
 
+import controller.command.Command;
 import controller.command.impl.HomeCommand;
 import controller.command.impl.activity.AvailableActivityCommand;
 import controller.command.impl.activity.UserActivitiesCommand;
 import controller.command.impl.auth.LoginCommand;
 import controller.command.impl.auth.LogoutCommand;
 import controller.command.impl.error.NotFoundCommand;
-import controller.command.impl.orders.DeleteOrderCommand;
-import controller.command.impl.orders.JoinOrderCommand;
-import controller.command.impl.orders.NewOrderCommand;
+import controller.command.impl.orders.PendingOrderCommand;
+import controller.command.impl.orders.ReviewedOrderCommand;
+import controller.command.impl.orders.actions.ApproveOrder;
+import controller.command.impl.orders.actions.RejectOrder;
+import controller.command.impl.orders.types.DeleteOrderCommand;
+import controller.command.impl.orders.types.JoinOrderCommand;
+import controller.command.impl.orders.types.NewOrderCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +40,10 @@ public class CommandFactory {
         postCommandMap.put("/join", new JoinOrderCommand());
         getCommandMap.put("/myactivity", new UserActivitiesCommand());
         postCommandMap.put("/deleteactivity", new DeleteOrderCommand());
+        getCommandMap.put("/orders", new PendingOrderCommand());
+        postCommandMap.put("/accept", new ApproveOrder());
+        postCommandMap.put("/reject", new RejectOrder());
+        getCommandMap.put("/reviewedorders", new ReviewedOrderCommand());
     }
 
     /**

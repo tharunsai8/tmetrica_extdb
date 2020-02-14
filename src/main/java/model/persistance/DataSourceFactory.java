@@ -13,7 +13,7 @@ import java.util.Properties;
 /**
  * The type Data source factory.
  */
-public class DataSourceFactory {
+public final class DataSourceFactory {
 
     /**
      * The constant DB_PROPERTIES.
@@ -44,7 +44,6 @@ public class DataSourceFactory {
      */
     public static final String DB_PASSWORD = "db.password";
 
-    private static final DataSourceFactory INSTANCE = new DataSourceFactory();
 
     private static PGDataSource dataSource;
 
@@ -62,7 +61,6 @@ public class DataSourceFactory {
             source.setUser(properties.getProperty(DB_USERNAME));
             source.setPassword(properties.getProperty(DB_PASSWORD));
             dataSource = source;
-
         } catch (IOException e) {
             e.printStackTrace();
         }
