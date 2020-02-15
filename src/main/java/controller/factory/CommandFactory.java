@@ -7,6 +7,10 @@ import controller.command.impl.activity.UserActivitiesCommand;
 import controller.command.impl.auth.LoginCommand;
 import controller.command.impl.auth.LogoutCommand;
 import controller.command.impl.error.NotFoundCommand;
+import controller.command.impl.logs.ActivityLogCommand;
+import controller.command.impl.logs.actions.AddLogCommand;
+import controller.command.impl.logs.actions.DeleteLogCommand;
+import controller.command.impl.logs.actions.EditLogCommand;
 import controller.command.impl.orders.PendingOrderCommand;
 import controller.command.impl.orders.ReviewedOrderCommand;
 import controller.command.impl.orders.actions.ApproveOrder;
@@ -33,17 +37,23 @@ public class CommandFactory {
         getCommandMap.put("/", new HomeCommand());
         getCommandMap.put("/index", new HomeCommand());
         getCommandMap.put("/login", new LoginCommand());
-        postCommandMap.put("/login", new LoginCommand());
         getCommandMap.put("/activities", new AvailableActivityCommand());
+        getCommandMap.put("/myactivity", new UserActivitiesCommand());
+        getCommandMap.put("/reviewedorders", new ReviewedOrderCommand());
+        getCommandMap.put("/logs", new ActivityLogCommand());
+        getCommandMap.put("/orders", new PendingOrderCommand());
+
+
+        postCommandMap.put("/login", new LoginCommand());
         postCommandMap.put("/logout", new LogoutCommand());
         postCommandMap.put("/createactivity", new NewOrderCommand());
         postCommandMap.put("/join", new JoinOrderCommand());
-        getCommandMap.put("/myactivity", new UserActivitiesCommand());
         postCommandMap.put("/deleteactivity", new DeleteOrderCommand());
-        getCommandMap.put("/orders", new PendingOrderCommand());
         postCommandMap.put("/accept", new ApproveOrder());
         postCommandMap.put("/reject", new RejectOrder());
-        getCommandMap.put("/reviewedorders", new ReviewedOrderCommand());
+        postCommandMap.put("/deletelog", new DeleteLogCommand());
+        postCommandMap.put("/addlog", new AddLogCommand());
+        postCommandMap.put("/editlog", new EditLogCommand());
     }
 
     /**

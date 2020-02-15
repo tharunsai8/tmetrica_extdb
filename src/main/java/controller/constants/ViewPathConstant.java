@@ -26,6 +26,7 @@ public class ViewPathConstant {
      */
     public static final String ORDERS = "/view/orders.jsp";
 
+    public static final String LOGS = "/view/logs.jsp";
     /**
      * The constant ERROR_401.
      */
@@ -35,6 +36,7 @@ public class ViewPathConstant {
      * The constant ERROR_403.
      */
     public static final String ERROR_403 = "/view/errors/403.jsp";
-    ;
+    public static final String ERROR_405 = "/view/errors/405.jsp";
+    ;;
 
 }

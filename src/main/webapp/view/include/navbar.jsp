@@ -41,7 +41,7 @@
                 </c:when>
                 <c:otherwise>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/times"><fmt:message bundle="${link}"
+                    <a class="nav-link" href="${pageContext.request.contextPath}/logs"><fmt:message bundle="${link}"
                                                                                                      key="navbar.times"/></a>
                 </li>
                 <li class="nav-item dropdown">
@@ -61,7 +61,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/times/statistic"><fmt:message
+                    <a class="nav-link" href="${pageContext.request.contextPath}/statistic"><fmt:message
                             bundle="${link}"
                             key="navbar.statistic"/></a>
                 </li>

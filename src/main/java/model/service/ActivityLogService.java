@@ -32,6 +32,10 @@ public interface ActivityLogService extends Service {
      */
     List<ActivityLog> getAll();
 
+    List<ActivityLog> getAllByUser(long userId);
+
+    List<ActivityLog> getAllByUserAndActivity(long userId, long activityId);
+
     /**
      * Create boolean.
      *

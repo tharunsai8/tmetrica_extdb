@@ -95,11 +95,13 @@
                     <td>
                         <c:choose>
                             <c:when test="${usersList}">
-                                <a href="${pageContext.request.contextPath}/times/acivity/${item.id}"
-                                   class="succes"><i
-                                        class="material-icons"
-                                        data-toggle="tooltip"
-                                        title="Show entries">&#xe8ef;</i></a>
+                                <form method="get" action="${pageContext.request.contextPath}/logs">
+                                    <input type="hidden" name="activityId" value="${item.id}">
+                                    <button class="success" type="submit"><i
+                                            class="material-icons"
+                                            data-toggle="tooltip"
+                                            title="Show entries">&#xe8ef;</i></button>
+                                </form>
                                 <a href="#deleteRecordModal" class="delete passingIDDelete" data-id="${item.id}"
                                    data-toggle="modal"><i
                                         class="material-icons"

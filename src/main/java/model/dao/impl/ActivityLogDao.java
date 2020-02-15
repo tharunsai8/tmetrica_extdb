@@ -85,8 +85,21 @@ public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
                     rs.getLong(ID),
                     activity,
                     user,
-                    rs.getTime(TIME_FROM),
-                    rs.getTime(TIME_TO));
+                    rs.getTimestamp(TIME_FROM),
+                    rs.getTimestamp(TIME_TO));
         };
+    }
+
+    public List<ActivityLog> getAllByUser(long userId) {
+        return getAllWithCondition(bundle.getString("log.get.by.user"), getMapper(), ps -> {
+            ps.setLong(1, userId);
+        });
+    }
+
+    public List<ActivityLog> getAllByUserAndActivity(long userId, long activityId) {
+        return getAllWithCondition(bundle.getString("log.get.by.user.and.activity"), getMapper(), ps -> {
+            ps.setLong(1, userId);
+            ps.setLong(2, activityId);
+        });
     }
 }

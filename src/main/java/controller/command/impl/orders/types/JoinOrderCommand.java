@@ -35,15 +35,19 @@ public class JoinOrderCommand implements Command {
         if (user == null) {
             return new Page(ViewPathConstant.LOGIN, true);
         }
-        createOrder(request, user.getEmail());
-        return new Page(ViewPathConstant.ACTIVITY, true);
+
+        return (createOrder(request, user.getEmail()) ? new Page(ViewPathConstant.ACTIVITY, true) : new Page(ViewPathConstant.ERROR_405, true));
     }
 
-    private void createOrder(HttpServletRequest request, String email) {
+    private boolean createOrder(HttpServletRequest request, String email) {
         long activityId = Long.parseLong(request.getParameter("activityId"));
         Order order = orderService.createJoinToActivityOrder(email, activityId);
-        if (AuthUtils.hasAuthority(request, Role.ADMIN)) {
-            orderService.approveOrder(order);
+        if (order != null) {
+            if (AuthUtils.hasAuthority(request, Role.ADMIN)) {
+                orderService.approveOrder(order);
+            }
+            return true;
         }
+        return false;
     }
 }

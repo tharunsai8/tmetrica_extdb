@@ -53,6 +53,16 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     }
 
     @Override
+    public List<ActivityLog> getAllByUser(long userId) {
+        return logDao.getAllByUser(userId);
+    }
+
+    @Override
+    public List<ActivityLog> getAllByUserAndActivity(long userId, long activityId) {
+        return logDao.getAllByUserAndActivity(userId, activityId);
+    }
+
+    @Override
     public boolean create(String startDate, String endDate, String email, long activityId) throws ParseException {
         User user = userService.getByEmail(email);
         Activity activity = activityService.getById(activityId);
