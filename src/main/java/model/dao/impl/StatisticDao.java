@@ -21,10 +21,11 @@ public class StatisticDao extends AbstractJDBCDao<Statistic> {
     public EntityMapper<Statistic> getMapper() {
         return resultSet -> {
             return new Statistic(
-                    new Activity(
-                            resultSet.getLong(ID),
-                            resultSet.getString(NAME),
-                            ActivityStatus.valueOf(resultSet.getString(STATUS))), Duration.parse(resultSet.getString(TIME)));
+                    Activity.newBuilder()
+                            .setName(resultSet.getString(NAME))
+                            .setStatus(ActivityStatus.valueOf(resultSet.getString(STATUS)))
+                            .setId(resultSet.getLong(ID))
+                            .build(), Duration.parse(resultSet.getString(TIME)));
         };
     }
 

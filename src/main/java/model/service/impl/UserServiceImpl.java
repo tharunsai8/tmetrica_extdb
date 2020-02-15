@@ -8,16 +8,10 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
 
-/**
- * The type User service.
- */
 public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
 
-    /**
-     * Instantiates a new User service.
-     */
     public UserServiceImpl() {
         userDao = new UserDao();
     }

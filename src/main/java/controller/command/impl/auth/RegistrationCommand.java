@@ -17,9 +17,6 @@ import java.util.Collections;
 public class RegistrationCommand extends GetPostCommand {
     private UserService userService;
 
-    /**
-     * Instantiates a new Login command.
-     */
     public RegistrationCommand() {
         userService = (UserService) ServiceFactory.getService(ServiceType.USERS);
     }

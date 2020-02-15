@@ -15,16 +15,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-/**
- * The type Join order command.
- */
 public class JoinOrderCommand implements Command {
     private OrderService orderService;
 
 
-    /**
-     * Instantiates a new Join order command.
-     */
     public JoinOrderCommand() {
         this.orderService = (OrderService) ServiceFactory.getService(ServiceType.ORDERS);
     }

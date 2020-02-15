@@ -26,9 +26,6 @@ import java.util.Map;
 
 import static java.util.Objects.nonNull;
 
-/**
- * The type Command factory.
- */
 public class CommandFactory {
     private static Map<String, Command> getCommandMap = new HashMap<>();
     private static Map<String, Command> postCommandMap = new HashMap<>();
@@ -61,13 +58,6 @@ public class CommandFactory {
         postCommandMap.put("/registration", new RegistrationCommand());
     }
 
-    /**
-     * Gets command.
-     *
-     * @param path   the path
-     * @param method the method
-     * @return the command
-     */
     public static Command getCommand(String path, String method) {
         return isGetMethod(method) ? getCommand(path) : postCommand(path);
     }

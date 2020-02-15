@@ -15,9 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 public class StatisticCommand implements Command {
     private StatisticService statisticService;
 
-    /**
-     * Instantiates a new Available activity command.
-     */
     public StatisticCommand() {
         this.statisticService = (StatisticService) ServiceFactory.getService(ServiceType.STATS);
     }

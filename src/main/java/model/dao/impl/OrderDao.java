@@ -15,9 +15,6 @@ import model.service.UserService;
 import java.util.List;
 import java.util.ResourceBundle;
 
-/**
- * The type Order dao.
- */
 public class OrderDao extends AbstractJDBCDao<Order> {
     private final String ID = "id";
     private final String ACTION = "action";
@@ -28,9 +25,6 @@ public class OrderDao extends AbstractJDBCDao<Order> {
     private ActivityService activityService;
     private UserService userService;
 
-    /**
-     * Instantiates a new Order dao.
-     */
     public OrderDao() {
         activityService = (ActivityService) ServiceFactory.getService(ServiceType.ACTIVITY);
         userService = (UserService) ServiceFactory.getService(ServiceType.USERS);
@@ -61,12 +55,6 @@ public class OrderDao extends AbstractJDBCDao<Order> {
                 });
     }
 
-    /**
-     * Create and return order.
-     *
-     * @param entity the entity
-     * @return the order
-     */
     public Order createAndReturn(Order entity) {
         long id = createUpdateWithReturn(bundle.getString("order.create"),
                 ps -> {
@@ -107,21 +95,11 @@ public class OrderDao extends AbstractJDBCDao<Order> {
         };
     }
 
-    /**
-     * Gets all pending.
-     *
-     * @return the all pending
-     */
     public List<Order> getAllPending() {
         return getAll(bundle.getString("order.get.all.pendind"),
                 getMapper());
     }
 
-    /**
-     * Gets all reviewed.
-     *
-     * @return the all reviewed
-     */
     public List<Order> getAllReviewed() {
         return getAll(bundle.getString("order.get.all.reviewed"),
                 getMapper());

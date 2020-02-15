@@ -13,9 +13,6 @@ import model.service.UserService;
 import java.util.List;
 import java.util.ResourceBundle;
 
-/**
- * The type Activity log dao.
- */
 public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
     private static final String USER_ID = "user_id";
     private static final String ACTIVITY_ID = "activity_id";
@@ -26,9 +23,6 @@ public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
     private ActivityService activityService;
     private UserService userService;
 
-    /**
-     * Instantiates a new Activity log dao.
-     */
     public ActivityLogDao() {
         activityService = (ActivityService) ServiceFactory.getService(ServiceType.ACTIVITY);
         userService = (UserService) ServiceFactory.getService(ServiceType.USERS);

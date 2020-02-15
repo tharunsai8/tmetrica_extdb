@@ -9,9 +9,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-/**
- * The type Localization filter.
- */
 public class LocalizationFilter implements Filter {
     private Map<String, Locale> langMap = new HashMap<>();
 

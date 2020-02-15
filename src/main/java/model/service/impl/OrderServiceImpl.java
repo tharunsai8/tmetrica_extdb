@@ -16,9 +16,6 @@ import model.service.UserService;
 import java.util.Date;
 import java.util.List;
 
-/**
- * The type Order service.
- */
 public class OrderServiceImpl implements OrderService{
 
     private OrderDao orderDao;
@@ -27,9 +24,6 @@ public class OrderServiceImpl implements OrderService{
 
     private ActivityService activityService;
 
-    /**
-     * Instantiates a new Order service.
-     */
     public OrderServiceImpl() {
         this.orderDao = new OrderDao();
         userService = (UserService) ServiceFactory.getService(ServiceType.USERS);
@@ -59,7 +53,11 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Order createNewActivityOrder(String activityName, String email) {
         User user = userService.getByEmail(email);
-        Activity activity = activityService.createAndReturn(new Activity(activityName, new Date(), ActivityStatus.SUSPENDED), user.getId());
+        Activity activity = activityService.createAndReturn(Activity.newBuilder()
+                .setOpeningTime(new Date())
+                .setStatus(ActivityStatus.SUSPENDED)
+                .setName(activityName)
+                .build(), user.getId());
         activityService.addUserToActivity(activity, user);
         Order order = new Order(1, OrderAction.CREATE, activityService.getById(activity.getId()), user, OrderStatus.PENDING);
         return orderDao.createAndReturn(order);
@@ -116,7 +114,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     private void prepareCreateOrderToApprove(Order order, Activity activity) {
-        activity.setStatus(ActivityStatus.ACTIVE);
+        activity = Activity.newBuilder().setStatus(ActivityStatus.ACTIVE).build();
         Activity activityToSave = activityService.updateAndReturn(activity);
         order.setActivity(activityToSave);
     }

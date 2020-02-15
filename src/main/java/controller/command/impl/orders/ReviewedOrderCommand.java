@@ -11,15 +11,9 @@ import model.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * The type Reviewed order command.
- */
 public class ReviewedOrderCommand implements Command {
     private OrderService orderService;
 
-    /**
-     * Instantiates a new Reviewed order command.
-     */
     public ReviewedOrderCommand() {
         this.orderService = (OrderService) ServiceFactory.getService(ServiceType.ORDERS);
     }

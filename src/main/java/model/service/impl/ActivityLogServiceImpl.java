@@ -16,9 +16,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-/**
- * The type Activity log service.
- */
 public class ActivityLogServiceImpl implements ActivityLogService {
 
     private UserService userService;
@@ -28,9 +25,6 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     private ActivityLogDao logDao;
 
 
-    /**
-     * Instantiates a new Activity log service.
-     */
     public ActivityLogServiceImpl() {
         userService = (UserService) ServiceFactory.getService(ServiceType.USERS);
         activityService = (ActivityService) ServiceFactory.getService(ServiceType.ACTIVITY);

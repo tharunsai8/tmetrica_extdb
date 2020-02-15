@@ -10,9 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-/**
- * The type Home command.
- */
 public class HomeCommand implements Command {
     @Override
     public Page perform(HttpServletRequest request) throws IOException, ServletException {

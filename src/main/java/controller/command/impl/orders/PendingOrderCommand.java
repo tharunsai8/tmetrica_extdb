@@ -11,15 +11,9 @@ import model.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * The type Pending order command.
- */
 public class PendingOrderCommand implements Command {
     private OrderService orderService;
 
-    /**
-     * Instantiates a new Pending order command.
-     */
     public PendingOrderCommand() {
         this.orderService = (OrderService) ServiceFactory.getService(ServiceType.ORDERS);
     }

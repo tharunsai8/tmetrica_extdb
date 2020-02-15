@@ -8,17 +8,11 @@ import model.service.ActivityService;
 
 import java.util.List;
 
-/**
- * The type Activity service.
- */
 public class ActivityServiceImpl implements ActivityService {
 
     private ActivityDao activityDao;
 
 
-    /**
-     * Instantiates a new Activity service.
-     */
     public ActivityServiceImpl() {
         activityDao = new ActivityDao();
     }
@@ -35,7 +29,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public boolean create(Activity activity, long userId) {
-        activity.setStatus(ActivityStatus.SUSPENDED);
+        activity = Activity.newBuilder().setStatus(ActivityStatus.SUSPENDED).build();
         return activityDao.create(activity);
     }
 
@@ -51,7 +45,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public Activity createAndReturn(Activity activity, long userId) {
-        activity.setStatus(ActivityStatus.SUSPENDED);
+        activity = Activity.newBuilder().setStatus(ActivityStatus.SUSPENDED).build();
         return activityDao.createAndReturn(activity);
     }
 

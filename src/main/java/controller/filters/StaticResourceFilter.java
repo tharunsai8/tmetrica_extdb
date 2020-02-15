@@ -4,9 +4,6 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-/**
- * The type Static resource filter.
- */
 public class StaticResourceFilter implements Filter {
     private static final String RESOURCES_PATH = "/resources/";
     private static final String VIEW_PATH = "/view/";

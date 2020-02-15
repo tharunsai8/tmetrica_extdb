@@ -3,9 +3,6 @@ package controller.filters;
 import javax.servlet.*;
 import java.io.IOException;
 
-/**
- * The type Encoding filter.
- */
 public class EncodingFilter implements Filter {
     private static final String ENCODING_UTF_8 = "UTF-8";
     private static final String DEFAULT_CONTENT_TYPE = "text/html; charset=UTF-8";
@@ -38,11 +35,6 @@ public class EncodingFilter implements Filter {
 
     }
 
-    /**
-     * Gets default encoding.
-     *
-     * @return the default encoding
-     */
     public String getDefaultEncoding() {
         return defaultEncoding;
     }

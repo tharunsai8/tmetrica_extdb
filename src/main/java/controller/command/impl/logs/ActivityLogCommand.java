@@ -19,9 +19,6 @@ public class ActivityLogCommand implements Command {
     private ActivityLogService activityLogService;
     private ActivityService activityService;
 
-    /**
-     * Instantiates a new Available activity command.
-     */
     public ActivityLogCommand() {
         this.activityLogService = (ActivityLogService) ServiceFactory.getService(ServiceType.LOGS);
         this.activityService = (ActivityService) ServiceFactory.getService(ServiceType.ACTIVITY);
