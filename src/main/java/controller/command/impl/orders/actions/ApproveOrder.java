@@ -34,7 +34,7 @@ public class ApproveOrder implements Command {
         if (user == null) {
             return new Page(ViewPathConstant.LOGIN, true);
         } else if (!AuthUtils.hasAuthority(request, Role.ADMIN))
-            return new Page(ViewPathConstant.ERROR_403, true);
+            return new Page(ViewPathConstant.ERROR_403);
         approve(request);
         return new Page(ViewPathConstant.ORDERS, true);
     }

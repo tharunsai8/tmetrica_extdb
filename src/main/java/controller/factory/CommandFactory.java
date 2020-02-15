@@ -2,10 +2,12 @@ package controller.factory;
 
 import controller.command.Command;
 import controller.command.impl.HomeCommand;
+import controller.command.impl.StatisticCommand;
 import controller.command.impl.activity.AvailableActivityCommand;
 import controller.command.impl.activity.UserActivitiesCommand;
 import controller.command.impl.auth.LoginCommand;
 import controller.command.impl.auth.LogoutCommand;
+import controller.command.impl.auth.RegistrationCommand;
 import controller.command.impl.error.NotFoundCommand;
 import controller.command.impl.logs.ActivityLogCommand;
 import controller.command.impl.logs.actions.AddLogCommand;
@@ -42,6 +44,8 @@ public class CommandFactory {
         getCommandMap.put("/reviewedorders", new ReviewedOrderCommand());
         getCommandMap.put("/logs", new ActivityLogCommand());
         getCommandMap.put("/orders", new PendingOrderCommand());
+        getCommandMap.put("/statistic", new StatisticCommand());
+        getCommandMap.put("/registration", new RegistrationCommand());
 
 
         postCommandMap.put("/login", new LoginCommand());
@@ -54,6 +58,7 @@ public class CommandFactory {
         postCommandMap.put("/deletelog", new DeleteLogCommand());
         postCommandMap.put("/addlog", new AddLogCommand());
         postCommandMap.put("/editlog", new EditLogCommand());
+        postCommandMap.put("/registration", new RegistrationCommand());
     }
 
     /**

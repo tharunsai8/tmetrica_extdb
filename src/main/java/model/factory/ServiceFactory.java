@@ -1,10 +1,7 @@
 package model.factory;
 
 import model.service.Service;
-import model.service.impl.ActivityLogServiceImpl;
-import model.service.impl.ActivityServiceImpl;
-import model.service.impl.OrderServiceImpl;
-import model.service.impl.UserServiceImpl;
+import model.service.impl.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +39,8 @@ public final class ServiceFactory {
             case ACTIVITY:
                 serviceMap.put(ServiceType.ACTIVITY, new ActivityServiceImpl());
                 break;
+            case STATS:
+                serviceMap.put(ServiceType.STATS, new StatisticServiceImpl());
         }
 
     }

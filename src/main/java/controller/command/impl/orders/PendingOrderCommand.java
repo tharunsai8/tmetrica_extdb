@@ -29,7 +29,7 @@ public class PendingOrderCommand implements Command {
         if (AuthUtils.isAuthenticated(request) == null) {
             return new Page(ViewPathConstant.LOGIN, true);
         } else if (!AuthUtils.hasAuthority(request, Role.ADMIN))
-            return new Page(ViewPathConstant.ERROR_403, true);
+            return new Page(ViewPathConstant.ERROR_403);
         request.setAttribute("orders", orderService.getAllPending());
         request.setAttribute("active", true);
         request.setAttribute("admin", true);

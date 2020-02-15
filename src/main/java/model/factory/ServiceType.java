@@ -19,5 +19,7 @@ public enum ServiceType {
     /**
      * Logs service type.
      */
-    LOGS
+    LOGS,
+
+    STATS
 }

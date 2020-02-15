@@ -1,8 +1,8 @@
 package controller;
 
 import controller.command.Command;
-import controller.factory.CommandFactory;
 import controller.data.Page;
+import controller.factory.CommandFactory;
 import org.apache.commons.io.FilenameUtils;
 
 import javax.servlet.ServletException;

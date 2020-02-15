@@ -51,6 +51,12 @@ public class Activity {
         this.status = status;
     }
 
+    public Activity(long id, String name, ActivityStatus status) {
+        this.name = name;
+        this.id = id;
+        this.status = status;
+    }
+
     /**
      * Instantiates a new Activity.
      *

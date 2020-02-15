@@ -34,7 +34,7 @@ public class RejectOrder implements Command {
         if (user == null) {
             return new Page(ViewPathConstant.LOGIN, true);
         } else if (!AuthUtils.hasAuthority(request, Role.ADMIN))
-            return new Page(ViewPathConstant.ERROR_403, true);
+            return new Page(ViewPathConstant.ERROR_403);
         reject(request);
         return new Page(ViewPathConstant.ORDERS, true);
     }

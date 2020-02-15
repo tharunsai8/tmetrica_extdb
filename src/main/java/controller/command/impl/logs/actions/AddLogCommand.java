@@ -34,7 +34,7 @@ public class AddLogCommand implements Command {
         if (user == null) {
             return new Page(ViewPathConstant.LOGIN, true);
         }
-        return (addLog(request, user)) ? new Page(ViewPathConstant.LOGS, true) : new Page(ViewPathConstant.ERROR_405, true);
+        return (addLog(request, user)) ? new Page(ViewPathConstant.LOGS, true) : new Page(ViewPathConstant.ERROR_500);
     }
 
     private boolean addLog(HttpServletRequest request, User user) {

@@ -55,6 +55,7 @@ public final class DataSourceFactory {
         try {
             properties.load(DataSourceFactory.class.getResourceAsStream(DB_PROPERTIES));
             PGDataSource source = new PGDataSource();
+
             source.setDatabaseName(properties.getProperty(DB_NAME));
             source.setHost(properties.getProperty(DB_HOST));
             source.setPort(Integer.parseInt(properties.getProperty(DB_PORT)));

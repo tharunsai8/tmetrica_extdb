@@ -4,7 +4,7 @@
 <head>
     <%@include file="../include/head.jsp" %>
     <link href="${pageContext.request.contextPath}/view/css/error.css" rel="stylesheet">
-    <title>Tmetrica - 404 ERROR</title>
+    <title>Tmetrica - 403 ERROR</title>
 </head>
 
 <body>
@@ -14,12 +14,15 @@
 
 
         <div class="notfound-404">
-            <h1>: (</h1>
+            <h1>&#x1f512;</h1>
         </div>
-        <h2>404 - Page not found</h2>
-        <p>The page you are looking for might have been removed had its name changed or is temporarily
-            unavailable.</p>
+        <h2>403 - Forbidden</h2>
+        <p>Sorry, your access is refused due to security reasons of our server and also our sensitive
+            data.<br/>Please
+            go back to the previous page to continue browsing.</p>
         <a href="${pageContext.request.contextPath}/">home page</a>
+
+
     </div>
 </div>
 <%@include file="../include/footer.jsp" %>

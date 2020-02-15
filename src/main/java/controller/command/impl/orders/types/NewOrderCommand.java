@@ -36,7 +36,7 @@ public class NewOrderCommand implements Command {
             return new Page(ViewPathConstant.LOGIN, true);
         }
 
-        return (createOrder(request, user.getEmail())) ? new Page(ViewPathConstant.ACTIVITY, true) : new Page(ViewPathConstant.ERROR_405, true);
+        return (createOrder(request, user.getEmail())) ? new Page(ViewPathConstant.ACTIVITY, true) : new Page(ViewPathConstant.ERROR_500);
     }
 
     private boolean createOrder(HttpServletRequest request, String email) {

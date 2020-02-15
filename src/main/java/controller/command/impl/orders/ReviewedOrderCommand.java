@@ -29,7 +29,7 @@ public class ReviewedOrderCommand implements Command {
         if (AuthUtils.isAuthenticated(request) == null) {
             return new Page(ViewPathConstant.LOGIN, true);
         } else if (!AuthUtils.hasAuthority(request, Role.ADMIN))
-            return new Page(ViewPathConstant.ERROR_403, true);
+            return new Page(ViewPathConstant.ERROR_403);
         request.setAttribute("orders", orderService.getAllReviewed());
         request.setAttribute("active", false);
         request.setAttribute("admin", true);
