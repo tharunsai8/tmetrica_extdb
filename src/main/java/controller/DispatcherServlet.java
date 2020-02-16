@@ -50,7 +50,15 @@ public class DispatcherServlet extends HttpServlet {
     private String getRedirectUrl(HttpServletRequest request, Page page) {
         String withoutExt = FilenameUtils.removeExtension(page.getUrl());
         int lastPath = withoutExt.lastIndexOf("/");
-        return request.getContextPath() + withoutExt.substring(lastPath);
+        String url = setAuthErrorIfNeeded(withoutExt.substring(lastPath));
+        return request.getContextPath() + url;
+    }
+
+    private String setAuthErrorIfNeeded(String url) {
+        if (url.equals("/login") || url.equals("/registration")) {
+            return url + "?error";
+        }
+        return url;
     }
 
 }

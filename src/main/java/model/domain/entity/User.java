@@ -3,7 +3,6 @@ package model.domain.entity;
 import lombok.NoArgsConstructor;
 import model.domain.enums.Role;
 
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
@@ -12,7 +11,7 @@ import java.util.Set;
  */
 @NoArgsConstructor
 
-public class User implements Serializable {
+public class User {
     private long id;
     private String email;
     private String password;

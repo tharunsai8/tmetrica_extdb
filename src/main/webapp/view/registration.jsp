@@ -45,12 +45,18 @@
                                 </div>
                                 <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
                                         type="submit"><fmt:message bundle="${link}"
-                                        key="auth.register.button"/>
+                                                                   key="auth.register.button"/>
                                 </button>
                                 <div class="text-center">
-                                    <a class="small" href="${pageContext.request.contextPath}/login"><fmt:message bundle="${link}"
+                                    <a class="small" href="${pageContext.request.contextPath}/login"><fmt:message
+                                            bundle="${link}"
                                             key="auth.register.login"/></a></div>
-
+                                <c:if test="${param.error != null}">
+                                    <div class="alert alert-danger" script>
+                                        <strong><fmt:message bundle="${link}"
+                                                             key="not.uniq"/></strong>
+                                    </div>
+                                </c:if>
                             </form>
                         </div>
                     </div>
@@ -62,11 +68,17 @@
 <%@include file="include/footer.jsp" %>
 </body>
 
-
+<script>
+    window.setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 2000);
+</script>
 <script>
     $('#password, #confirm_password').on('keyup', function () {
         if ($('#password').val() == $('#confirm_password').val()) {
-             $('#message').html('').css('color', 'green');
+            $('#message').html('').css('color', 'green');
         } else
             $('#message').html('  Passwords do not match').css('color', 'red');
     });

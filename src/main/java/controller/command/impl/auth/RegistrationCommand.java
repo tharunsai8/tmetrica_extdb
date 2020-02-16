@@ -6,6 +6,7 @@ import controller.data.Page;
 import controller.util.AuthUtils;
 import model.domain.entity.User;
 import model.domain.enums.Role;
+import model.domain.exceptions.NotUniqueEmailException;
 import model.factory.ServiceFactory;
 import model.factory.ServiceType;
 import model.service.UserService;
@@ -41,7 +42,7 @@ public class RegistrationCommand extends GetPostCommand {
             session.setAttribute("user", user);
             return new Page(ViewPathConstant.HOME, true);
         }
-        return (createUser(request)) ? new Page(ViewPathConstant.LOGIN, true) : new Page(ViewPathConstant.ERROR_500);
+        return (createUser(request)) ? new Page(ViewPathConstant.LOGIN) : new Page(ViewPathConstant.REGISTRATION, true);
     }
 
     /**
@@ -55,6 +56,11 @@ public class RegistrationCommand extends GetPostCommand {
         String password = request.getParameter("password");
         String name = request.getParameter("name");
         User userToRegister = new User(1, email, password, name, Collections.singleton(Role.USER));
-        return userService.register(userToRegister);
+        boolean result = false;
+        try {
+            result = userService.register(userToRegister);
+        } catch (NotUniqueEmailException ignored) {
+        }
+        return result;
     }
 }

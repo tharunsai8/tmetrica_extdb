@@ -1,13 +1,12 @@
 package model.domain.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 /**
  * The type Activity log.
  */
-public class ActivityLog implements Serializable {
+public class ActivityLog {
 
     private long id;
     private Activity activity;

@@ -43,7 +43,7 @@
                                             key="auth.login.register"/></a>
                                 </div>
 
-                                <c:if test="${login_error != null}">
+                                <c:if test="${param.error != null}">
                                     <div class="alert alert-danger" script>
                                         <strong><fmt:message bundle="${link}"
                                                              key="wrong.password"/></strong>
@@ -58,6 +58,7 @@
     </div>
 </div>
 <%@include file="include/footer.jsp" %>
+
 </body>
 
 <script>

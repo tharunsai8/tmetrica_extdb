@@ -2,7 +2,6 @@ package model.domain.entity;
 
 import model.domain.enums.ActivityStatus;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
@@ -11,7 +10,7 @@ import java.util.Set;
 /**
  * The type Activity.
  */
-public final class Activity implements Serializable {
+public final class Activity{
 
     private long id;
     private String name;

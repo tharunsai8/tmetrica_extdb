@@ -38,13 +38,9 @@ public class LoginCommand extends GetPostCommand {
         User user = userService.validateUser(email, password);
         if (user != null) {
             session.setAttribute("user", user);
+            session.removeAttribute(AttributeName.LOGIN_ERROR);
             return new Page(ViewPathConstant.HOME, true);
         }
-        return failedLogin(request);
-    }
-
-    private Page failedLogin(HttpServletRequest request) {
-        request.setAttribute(AttributeName.LOGIN_ERROR, true);
         return new Page(ViewPathConstant.LOGIN, true);
     }
 
