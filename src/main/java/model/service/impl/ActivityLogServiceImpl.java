@@ -111,5 +111,4 @@ public class ActivityLogServiceImpl implements ActivityLogService {
         return logDao.getAllByUserAndActivityPages(userId, activityId);
     }
 
-    //TODO add pagination
 }

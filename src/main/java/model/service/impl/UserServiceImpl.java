@@ -76,10 +76,5 @@ public class UserServiceImpl implements UserService {
         User user = userDao.getByEmail(email);
         return (BCrypt.checkpw(password, user.getPassword())) ? user : null;
     }
-//
-//    public User getByEmail(String email) {
-//        return userDao.getById(bundle.getString("user.get.email"),
-//                ps -> ps.setString(1, email),
-//                userDao.getMapper());
-//    }
+
 }

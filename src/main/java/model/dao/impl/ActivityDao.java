@@ -131,21 +131,12 @@ public class ActivityDao extends AbstractJDBCDao<Activity> {
                 });
     }
 
+
     /**
      * Gets in range.
      *
-     * @param currentPageInt the current page int
-     * @param postOnPage     the post on page
-     * @param userEmail      the user email
-     * @return the in range
-     */
-
-
-    /**
-     * Gets active activity by user id.
-     *
      * @param id the id
-     * @return the active activity by user id
+     * @return the in range
      */
     public List<Activity> getActiveActivityByUserId(long id) {
         LOG.info("Trying execute " + bundle.getString("activity.get.all.active.full") + " userId: " + id);

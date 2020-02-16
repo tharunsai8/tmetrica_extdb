@@ -179,7 +179,7 @@ public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
     }
 
     /**
-     * Count pages int.
+     * Count int.
      *
      * @param query           the query
      * @param statementMapper the statement mapper

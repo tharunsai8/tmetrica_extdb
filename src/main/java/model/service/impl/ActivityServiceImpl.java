@@ -107,4 +107,3 @@ public class ActivityServiceImpl implements ActivityService {
 
 }
 
-//TODO add pagination
