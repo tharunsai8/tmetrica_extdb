@@ -14,9 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
 
+/**
+ * The type Registration command.
+ */
 public class RegistrationCommand extends GetPostCommand {
     private UserService userService;
 
+    /**
+     * Instantiates a new Registration command.
+     */
     public RegistrationCommand() {
         userService = (UserService) ServiceFactory.getService(ServiceType.USERS);
     }
@@ -38,6 +44,12 @@ public class RegistrationCommand extends GetPostCommand {
         return (createUser(request)) ? new Page(ViewPathConstant.LOGIN, true) : new Page(ViewPathConstant.ERROR_500);
     }
 
+    /**
+     * Create user boolean.
+     *
+     * @param request the request
+     * @return the boolean
+     */
     boolean createUser(HttpServletRequest request) {
         String email = request.getParameter("email");
         String password = request.getParameter("password");

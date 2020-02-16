@@ -13,9 +13,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * The type Delete log command.
+ */
 public class DeleteLogCommand implements Command {
+    /**
+     * The Activity log service.
+     */
     ActivityLogService activityLogService;
 
+    /**
+     * Instantiates a new Delete log command.
+     */
     public DeleteLogCommand() {
         this.activityLogService = (ActivityLogService) ServiceFactory.getService(ServiceType.LOGS);
     }

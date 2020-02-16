@@ -13,6 +13,9 @@ import model.service.UserService;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * The type Activity log dao.
+ */
 public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
     private static final String USER_ID = "user_id";
     private static final String ACTIVITY_ID = "activity_id";
@@ -23,6 +26,9 @@ public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
     private ActivityService activityService;
     private UserService userService;
 
+    /**
+     * Instantiates a new Activity log dao.
+     */
     public ActivityLogDao() {
         activityService = (ActivityService) ServiceFactory.getService(ServiceType.ACTIVITY);
         userService = (UserService) ServiceFactory.getService(ServiceType.USERS);
@@ -84,12 +90,25 @@ public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
         };
     }
 
+    /**
+     * Gets all by user.
+     *
+     * @param userId the user id
+     * @return the all by user
+     */
     public List<ActivityLog> getAllByUser(long userId) {
         return getAllWithCondition(bundle.getString("log.get.by.user"), getMapper(), ps -> {
             ps.setLong(1, userId);
         });
     }
 
+    /**
+     * Gets all by user and activity.
+     *
+     * @param userId     the user id
+     * @param activityId the activity id
+     * @return the all by user and activity
+     */
     public List<ActivityLog> getAllByUserAndActivity(long userId, long activityId) {
         return getAllWithCondition(bundle.getString("log.get.by.user.and.activity"), getMapper(), ps -> {
             ps.setLong(1, userId);
@@ -97,10 +116,23 @@ public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
         });
     }
 
+    /**
+     * Gets all by user pages.
+     *
+     * @param userId the user id
+     * @return the all by user pages
+     */
     public int getAllByUserPages(long userId) {
         return countPages(bundle.getString("log.get.by.user.count"), ps -> ps.setLong(1, userId)) / OBJECT_ON_PAGE + 1;
     }
 
+    /**
+     * Gets all by user and activity pages.
+     *
+     * @param userId     the user id
+     * @param activityId the activity id
+     * @return the all by user and activity pages
+     */
     public int getAllByUserAndActivityPages(long userId, long activityId) {
         return countPages(bundle.getString("log.get.by.user.and.activity.count"), ps -> {
             ps.setLong(1, userId);
@@ -108,6 +140,13 @@ public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
         }) / OBJECT_ON_PAGE + 1;
     }
 
+    /**
+     * Gets all by user.
+     *
+     * @param userId      the user id
+     * @param currentPage the current page
+     * @return the all by user
+     */
     public List<ActivityLog> getAllByUser(long userId, String currentPage) {
         int currentPageInt = currentPage != null ? Integer.parseInt(currentPage) : 1;
         currentPageInt = currentPageInt <= 0 ? 0 : (currentPageInt - 1) * OBJECT_ON_PAGE;
@@ -119,6 +158,14 @@ public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
         });
     }
 
+    /**
+     * Gets all by user and activity.
+     *
+     * @param userId      the user id
+     * @param activityId  the activity id
+     * @param currentPage the current page
+     * @return the all by user and activity
+     */
     public List<ActivityLog> getAllByUserAndActivity(long userId, long activityId, String currentPage) {
         int currentPageInt = currentPage != null ? Integer.parseInt(currentPage) : 1;
         currentPageInt = currentPageInt <= 0 ? 0 : (currentPageInt - 1) * OBJECT_ON_PAGE;

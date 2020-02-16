@@ -14,10 +14,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * The type Reject order.
+ */
 public class RejectOrder implements Command {
     private OrderService orderService;
 
 
+    /**
+     * Instantiates a new Reject order.
+     */
     public RejectOrder() {
         this.orderService = (OrderService) ServiceFactory.getService(ServiceType.ORDERS);
     }

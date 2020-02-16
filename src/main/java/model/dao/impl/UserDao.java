@@ -12,6 +12,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * The type User dao.
+ */
 public class UserDao extends AbstractJDBCDao<User> {
     private final String ID = "id";
     private final String EMAIL = "email";
@@ -52,6 +55,12 @@ public class UserDao extends AbstractJDBCDao<User> {
         return false;
     }
 
+    /**
+     * Gets by email.
+     *
+     * @param email the email
+     * @return the by email
+     */
     public User getByEmail(String email) {
         return getById(bundle.getString("user.get.email"),
                 ps -> ps.setString(1, email),
@@ -63,6 +72,12 @@ public class UserDao extends AbstractJDBCDao<User> {
         return false;
     }
 
+    /**
+     * Gets all by activity.
+     *
+     * @param activityId the activity id
+     * @return the all by activity
+     */
     public List<User> getAllByActivity(long activityId) {
         return getAllWithCondition(bundle.getString("users.get.by.activity"), getMapper(), ps -> {
             ps.setLong(1, activityId);

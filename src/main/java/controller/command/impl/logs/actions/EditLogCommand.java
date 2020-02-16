@@ -19,10 +19,22 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+/**
+ * The type Edit log command.
+ */
 public class EditLogCommand implements Command {
+    /**
+     * The Activity log service.
+     */
     ActivityLogService activityLogService;
+    /**
+     * The Activity service.
+     */
     ActivityService activityService;
 
+    /**
+     * Instantiates a new Edit log command.
+     */
     public EditLogCommand() {
         this.activityLogService = (ActivityLogService) ServiceFactory.getService(ServiceType.LOGS);
         this.activityService = (ActivityService) ServiceFactory.getService(ServiceType.ACTIVITY);

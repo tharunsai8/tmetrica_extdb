@@ -15,10 +15,16 @@ import model.service.ActivityService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * The type Activity log command.
+ */
 public class ActivityLogCommand implements Command {
     private ActivityLogService activityLogService;
     private ActivityService activityService;
 
+    /**
+     * Instantiates a new Activity log command.
+     */
     public ActivityLogCommand() {
         this.activityLogService = (ActivityLogService) ServiceFactory.getService(ServiceType.LOGS);
         this.activityService = (ActivityService) ServiceFactory.getService(ServiceType.ACTIVITY);

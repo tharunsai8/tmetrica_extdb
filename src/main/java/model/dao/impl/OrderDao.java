@@ -15,6 +15,9 @@ import model.service.UserService;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * The type Order dao.
+ */
 public class OrderDao extends AbstractJDBCDao<Order> {
     private final String ID = "id";
     private final String ACTION = "action";
@@ -25,6 +28,9 @@ public class OrderDao extends AbstractJDBCDao<Order> {
     private ActivityService activityService;
     private UserService userService;
 
+    /**
+     * Instantiates a new Order dao.
+     */
     public OrderDao() {
         activityService = (ActivityService) ServiceFactory.getService(ServiceType.ACTIVITY);
         userService = (UserService) ServiceFactory.getService(ServiceType.USERS);
@@ -55,6 +61,12 @@ public class OrderDao extends AbstractJDBCDao<Order> {
                 });
     }
 
+    /**
+     * Create and return order.
+     *
+     * @param entity the entity
+     * @return the order
+     */
     public Order createAndReturn(Order entity) {
         long id = createUpdateWithReturn(bundle.getString("order.create"),
                 ps -> {
@@ -95,26 +107,52 @@ public class OrderDao extends AbstractJDBCDao<Order> {
         };
     }
 
+    /**
+     * Gets all pending.
+     *
+     * @return the all pending
+     */
     public List<Order> getAllPending() {
         return getAll(bundle.getString("order.get.all.pending"),
                 getMapper());
     }
 
+    /**
+     * Gets all reviewed.
+     *
+     * @return the all reviewed
+     */
     public List<Order> getAllReviewed() {
         return getAll(bundle.getString("order.get.all.reviewed"),
                 getMapper());
     }
 
+    /**
+     * Gets all reviewed pages.
+     *
+     * @return the all reviewed pages
+     */
     public int getAllReviewedPages() {
         return countPages(bundle.getString("order.get.all.reviewed.count"), ps -> {
         }) / OBJECT_ON_PAGE + 1;
     }
 
+    /**
+     * Gets all pending pages.
+     *
+     * @return the all pending pages
+     */
     public int getAllPendingPages() {
         return countPages(bundle.getString("order.get.all.pending.count"), ps -> {
         }) / OBJECT_ON_PAGE + 1;
     }
 
+    /**
+     * Gets all reviewed.
+     *
+     * @param currentPage the current page
+     * @return the all reviewed
+     */
     public List<Order> getAllReviewed(String currentPage) {
         int currentPageInt = currentPage != null ? Integer.parseInt(currentPage) : 1;
         currentPageInt = currentPageInt <= 0 ? 0 : (currentPageInt - 1) * OBJECT_ON_PAGE;
@@ -126,6 +164,12 @@ public class OrderDao extends AbstractJDBCDao<Order> {
     }
 
 
+    /**
+     * Gets all pending.
+     *
+     * @param currentPage the current page
+     * @return the all pending
+     */
     public List<Order> getAllPending(String currentPage) {
         int currentPageInt = currentPage != null ? Integer.parseInt(currentPage) : 1;
         currentPageInt = currentPageInt <= 0 ? 0 : (currentPageInt - 1) * OBJECT_ON_PAGE;

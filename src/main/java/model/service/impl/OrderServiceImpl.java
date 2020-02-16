@@ -16,6 +16,9 @@ import model.service.UserService;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The type Order service.
+ */
 public class OrderServiceImpl implements OrderService{
 
     private OrderDao orderDao;
@@ -24,6 +27,9 @@ public class OrderServiceImpl implements OrderService{
 
     private ActivityService activityService;
 
+    /**
+     * Instantiates a new Order service.
+     */
     public OrderServiceImpl() {
         this.orderDao = new OrderDao();
         userService = (UserService) ServiceFactory.getService(ServiceType.USERS);

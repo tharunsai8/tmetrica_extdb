@@ -10,6 +10,9 @@ import java.time.Duration;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * The type Statistic dao.
+ */
 public class StatisticDao extends AbstractJDBCDao<Statistic> {
     private final String ID = "activity_id";
     private final String NAME = "activity_name";
@@ -29,6 +32,12 @@ public class StatisticDao extends AbstractJDBCDao<Statistic> {
         };
     }
 
+    /**
+     * Gets all by user.
+     *
+     * @param userId the user id
+     * @return the all by user
+     */
     public List<Statistic> getAllByUser(long userId) {
         return getAllWithCondition(bundle.getString("stats.get"), getMapper(), ps -> {
             ps.setLong(1, userId);
@@ -36,12 +45,25 @@ public class StatisticDao extends AbstractJDBCDao<Statistic> {
     }
 
 
+    /**
+     * Gets all by user pages.
+     *
+     * @param userId the user id
+     * @return the all by user pages
+     */
     public int getAllByUserPages(long userId) {
         return countPages(bundle.getString("stats.count"), ps -> {
             ps.setLong(1, userId);
         }) / OBJECT_ON_PAGE + 1;
     }
 
+    /**
+     * Gets all by user.
+     *
+     * @param userId      the user id
+     * @param currentPage the current page
+     * @return the all by user
+     */
     public List<Statistic> getAllByUser(long userId, String currentPage) {
         int currentPageInt = currentPage != null ? Integer.parseInt(currentPage) : 1;
         currentPageInt = currentPageInt <= 0 ? 0 : (currentPageInt - 1) * OBJECT_ON_PAGE;

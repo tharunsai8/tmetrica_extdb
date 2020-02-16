@@ -2,27 +2,56 @@ package model.domain.entity;
 
 import java.time.Duration;
 
+/**
+ * The type Statistic.
+ */
 public class Statistic {
     private Activity activity;
     private Duration duration;
 
+    /**
+     * Instantiates a new Statistic.
+     *
+     * @param activity the activity
+     * @param duration the duration
+     */
     public Statistic(Activity activity, Duration duration) {
         this.activity = activity;
         this.duration = duration;
     }
 
+    /**
+     * Gets activity.
+     *
+     * @return the activity
+     */
     public Activity getActivity() {
         return activity;
     }
 
+    /**
+     * Sets activity.
+     *
+     * @param activity the activity
+     */
     public void setActivity(Activity activity) {
         this.activity = activity;
     }
 
+    /**
+     * Gets duration.
+     *
+     * @return the duration
+     */
     public Duration getDuration() {
         return duration;
     }
 
+    /**
+     * Sets duration.
+     *
+     * @param duration the duration
+     */
     public void setDuration(Duration duration) {
         this.duration = duration;
     }
@@ -35,6 +64,11 @@ public class Statistic {
                 '}';
     }
 
+    /**
+     * Format duration string.
+     *
+     * @return the string
+     */
     public String formatDuration() {
         long days = duration.toDays();
         duration = duration.minusDays(days);

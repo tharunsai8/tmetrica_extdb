@@ -19,10 +19,22 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+/**
+ * The type Add log command.
+ */
 public class AddLogCommand implements Command {
+    /**
+     * The Activity log service.
+     */
     ActivityLogService activityLogService;
+    /**
+     * The Activity service.
+     */
     ActivityService activityService;
 
+    /**
+     * Instantiates a new Add log command.
+     */
     public AddLogCommand() {
         this.activityLogService = (ActivityLogService) ServiceFactory.getService(ServiceType.LOGS);
         this.activityService = (ActivityService) ServiceFactory.getService(ServiceType.ACTIVITY);

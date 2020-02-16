@@ -15,9 +15,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * The type Delete order command.
+ */
 public class DeleteOrderCommand implements Command {
     private OrderService orderService;
 
+    /**
+     * Instantiates a new Delete order command.
+     */
     public DeleteOrderCommand() {
         this.orderService = (OrderService) ServiceFactory.getService(ServiceType.ORDERS);
     }

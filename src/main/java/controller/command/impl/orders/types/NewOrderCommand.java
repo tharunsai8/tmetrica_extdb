@@ -15,10 +15,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * The type New order command.
+ */
 public class NewOrderCommand implements Command {
     private OrderService orderService;
 
 
+    /**
+     * Instantiates a new New order command.
+     */
     public NewOrderCommand() {
         this.orderService = (OrderService) ServiceFactory.getService(ServiceType.ORDERS);
     }

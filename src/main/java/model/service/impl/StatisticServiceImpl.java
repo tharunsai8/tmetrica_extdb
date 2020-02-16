@@ -6,9 +6,15 @@ import model.service.StatisticService;
 
 import java.util.List;
 
+/**
+ * The type Statistic service.
+ */
 public class StatisticServiceImpl implements StatisticService {
     private StatisticDao statisticDao;
 
+    /**
+     * Instantiates a new Statistic service.
+     */
     public StatisticServiceImpl() {
         statisticDao = new StatisticDao();
     }

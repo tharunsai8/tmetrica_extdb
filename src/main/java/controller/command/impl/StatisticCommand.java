@@ -12,9 +12,15 @@ import model.service.StatisticService;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The type Statistic command.
+ */
 public class StatisticCommand implements Command {
     private StatisticService statisticService;
 
+    /**
+     * Instantiates a new Statistic command.
+     */
     public StatisticCommand() {
         this.statisticService = (StatisticService) ServiceFactory.getService(ServiceType.STATS);
     }

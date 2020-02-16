@@ -8,11 +8,17 @@ import model.service.ActivityService;
 
 import java.util.List;
 
+/**
+ * The type Activity service.
+ */
 public class ActivityServiceImpl implements ActivityService {
 
     private ActivityDao activityDao;
 
 
+    /**
+     * Instantiates a new Activity service.
+     */
     public ActivityServiceImpl() {
         activityDao = new ActivityDao();
     }

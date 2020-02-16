@@ -12,9 +12,15 @@ import model.service.ActivityService;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The type Available activity command.
+ */
 public class AvailableActivityCommand implements Command {
     private ActivityService activityService;
 
+    /**
+     * Instantiates a new Available activity command.
+     */
     public AvailableActivityCommand() {
         this.activityService = (ActivityService) ServiceFactory.getService(ServiceType.ACTIVITY);
     }
