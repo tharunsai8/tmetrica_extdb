@@ -7,9 +7,15 @@ import java.util.List;
 public interface OrderService extends Service {
     boolean create(Order order);
 
+    int getAllReviewedPages();
+
+    int getAllPendingPages();
+
     List<Order> getAll();
 
     List<Order> getAllPending();
+
+    List<Order> getAllPending(String page);
 
     List<Order> getAllReviewed();
 
@@ -24,4 +30,8 @@ public interface OrderService extends Service {
     void approveOrder(Order order);
 
     void rejectOrder(Order order);
+
+    List<Order> getAllReviewed(String currentPage);
+
+
 }

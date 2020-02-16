@@ -35,6 +35,26 @@ public class StatisticDao extends AbstractJDBCDao<Statistic> {
         });
     }
 
+
+    public int getAllByUserPages(long userId) {
+        return countPages(bundle.getString("stats.count"), ps -> {
+            ps.setLong(1, userId);
+        }) / OBJECT_ON_PAGE + 1;
+    }
+
+    public List<Statistic> getAllByUser(long userId, String currentPage) {
+        int currentPageInt = currentPage != null ? Integer.parseInt(currentPage) : 1;
+        currentPageInt = currentPageInt <= 0 ? 0 : (currentPageInt - 1) * OBJECT_ON_PAGE;
+        int offset = currentPageInt;
+        return getAllWithCondition(bundle.getString("stats.get.pages"), getMapper(), ps -> {
+            ps.setLong(1, userId);
+            ps.setInt(2, OBJECT_ON_PAGE);
+            ps.setInt(3, offset);
+
+        });
+    }
+
+
     @Override
     @Deprecated
     @SuppressWarnings("unused")
@@ -70,3 +90,5 @@ public class StatisticDao extends AbstractJDBCDao<Statistic> {
         return false;
     }
 }
+
+

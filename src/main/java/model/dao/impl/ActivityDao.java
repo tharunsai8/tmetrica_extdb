@@ -106,18 +106,46 @@ public class ActivityDao extends AbstractJDBCDao<Activity> {
     }
 
     public List<Activity> getActiveActivityByUserId(long id) {
-        return getAllWithCondition(bundle.getString("activity.get.all.active"), getMapper(), ps -> {
+        return getAllWithCondition(bundle.getString("activity.get.all.active.full"), getMapper(), ps -> {
             ps.setLong(1, id);
         });
     }
 
-    public List<Activity> getAllUsersActivity(long id) {
+    public List<Activity> getAllUsersActivity(long userId, String currentPage) {
+        int currentPageInt = currentPage != null ? Integer.parseInt(currentPage) : 1;
+        currentPageInt = currentPageInt <= 0 ? 0 : (currentPageInt - 1) * OBJECT_ON_PAGE;
+        int offset = currentPageInt;
         return getAllWithCondition(bundle.getString("activity.get.all"), getMapper(), ps -> {
-            ps.setLong(1, id);
+            ps.setLong(1, userId);
+            ps.setInt(2, OBJECT_ON_PAGE);
+            ps.setInt(3, offset);
         });
     }
 
-    public int getPageCount(String userEmail) {
-        return 0;
+    public List<Activity> getActiveActivityByUserId(long userId, String currentPage) {
+        int currentPageInt = currentPage != null ? Integer.parseInt(currentPage) : 1;
+        currentPageInt = currentPageInt <= 0 ? 0 : (currentPageInt - 1) * OBJECT_ON_PAGE;
+        int offset = currentPageInt;
+        return getAllWithCondition(bundle.getString("activity.get.all.active"), getMapper(), ps -> {
+            ps.setLong(1, userId);
+            ps.setInt(2, OBJECT_ON_PAGE);
+            ps.setInt(3, offset);
+        });
     }
+
+    public int getPageCountForActiveActivities(long id) {
+        return countPages(bundle.getString("activity.active.count"), ps -> ps.setLong(1, id)) / OBJECT_ON_PAGE + 1;
+    }
+
+    public int getPageCountForUserActivities(long id) {
+        return countPages(bundle.getString("activity.all.count"), ps -> ps.setLong(1, id)) / OBJECT_ON_PAGE + 1;
+    }
+
+    public List<Activity> getAllUsersActivity(long userId) {
+        return getAllWithCondition(bundle.getString("activity.get.all.full"), getMapper(), ps -> {
+            ps.setLong(1, userId);
+        });
+    }
+
+
 }

@@ -14,7 +14,11 @@ public interface ActivityLogService extends Service {
 
     List<ActivityLog> getAllByUser(long userId);
 
+    List<ActivityLog> getAllByUser(long userId, String currentPage);
+
     List<ActivityLog> getAllByUserAndActivity(long userId, long activityId);
+
+    List<ActivityLog> getAllByUserAndActivity(long userId, long activityId, String currentPage);
 
     boolean create(String startDate, String endDate, String email, long activityId) throws ParseException;
 
@@ -23,4 +27,8 @@ public interface ActivityLogService extends Service {
     boolean update(long id, String startDate, String endDate, String email, long activityId) throws ParseException;
 
     boolean delete(long logId);
+
+    int getAllByUserPages(long userId);
+
+    int getAllByUserAndActivityPages(long userId, long actovotyId);
 }

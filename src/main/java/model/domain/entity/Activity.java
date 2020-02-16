@@ -2,12 +2,13 @@ package model.domain.entity;
 
 import model.domain.enums.ActivityStatus;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
 
-public final class Activity {
+public final class Activity implements Serializable {
 
     private long id;
     private String name;
@@ -68,6 +69,12 @@ public final class Activity {
             return this;
         }
 
+        public ActivityBuilder modifyStatus(Activity activity, ActivityStatus status) {
+            this.clone(activity);
+            Activity.this.status = status;
+            return this;
+        }
+
         public ActivityBuilder setOpeningTime(Date openingTime) {
             Activity.this.openingTime = openingTime;
             return this;
@@ -88,6 +95,7 @@ public final class Activity {
             return this;
         }
 
+
         public ActivityBuilder setLogs(Set<ActivityLog> logs) {
             Activity.this.logs = logs;
             return this;
@@ -95,6 +103,16 @@ public final class Activity {
 
         public Activity build() {
             return Activity.this;
+        }
+
+        private void clone(Activity activity) {
+            Activity.this.openingTime = activity.openingTime;
+            Activity.this.closingTime = activity.closingTime;
+            Activity.this.users = activity.users;
+            Activity.this.name = activity.name;
+            Activity.this.status = activity.status;
+            Activity.this.id = activity.id;
+            Activity.this.logs = activity.logs;
         }
 
     }

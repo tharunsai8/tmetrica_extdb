@@ -7,7 +7,7 @@
 <head>
 
     <%@include file="include/head.jsp" %>
-    <title>Logs</title>
+    <title>Tmetrica - Logs</title>
 </head>
 <body>
 <%@include file="include/navbar.jsp" %>
@@ -73,6 +73,9 @@
         </table>
 
     </div>
+    <%@include file="include/pager.jsp" %>
+    <br>
+    <br>
 </div>
 
 <!-- Add Modal HTML -->

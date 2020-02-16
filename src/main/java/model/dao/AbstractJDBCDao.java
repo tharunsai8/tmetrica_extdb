@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
-
+    protected static final int OBJECT_ON_PAGE = 5;
     public T getById(String query, StatementMapper<T> statementMapper, EntityMapper<T> mapper) {
         return getT(query, statementMapper, mapper);
     }
@@ -115,6 +115,25 @@ public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
         }
 
         return false;
+    }
+
+    public int countPages(String query, StatementMapper<T> statementMapper) {
+        try (PreparedStatement preparedStatement = DataSourceFactory.getPreparedStatement(query)) {
+            statementMapper.map(preparedStatement);
+            int result = -1;
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    result = resultSet.getInt("count");
+                }
+            }
+            closeConnection(preparedStatement);
+
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return -1;
     }
 
     private void closeConnection(PreparedStatement preparedStatement) throws SQLException {

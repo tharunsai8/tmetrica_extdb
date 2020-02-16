@@ -29,7 +29,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public boolean create(Activity activity, long userId) {
-        activity = Activity.newBuilder().setStatus(ActivityStatus.SUSPENDED).build();
+        activity = Activity.newBuilder().modifyStatus(activity, ActivityStatus.SUSPENDED).build();
         return activityDao.create(activity);
     }
 
@@ -39,13 +39,24 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
+    public List<Activity> getActiveActivityByUser(long userId, String currentPage) {
+        return activityDao.getActiveActivityByUserId(userId, currentPage);
+    }
+
+    @Override
+    public List<Activity> getAllActivityByUser(long userId, String currentPage) {
+        return activityDao.getAllUsersActivity(userId, currentPage);
+    }
+
+    @Override
     public List<Activity> getAllActivityByUser(long userId) {
         return activityDao.getAllUsersActivity(userId);
     }
 
+
     @Override
     public Activity createAndReturn(Activity activity, long userId) {
-        activity = Activity.newBuilder().setStatus(ActivityStatus.SUSPENDED).build();
+        activity = Activity.newBuilder().modifyStatus(activity, ActivityStatus.SUSPENDED).build();
         return activityDao.createAndReturn(activity);
     }
 
@@ -78,23 +89,16 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public List<Activity> getActivityList(String currentPage, String userEmail, int postOnPage) {
-        int currentPageInt = currentPage != null ? Integer.parseInt(currentPage) : 1;
-        return activityDao.getInRange(currentPageInt, postOnPage, userEmail);
-    }
-
-
-    @Override
-    public List<Activity> getAvailableActivityList(String currentPage, String userEmail, int postOnPage) {
-        int currentPageInt = currentPage != null ? Integer.parseInt(currentPage) : 1;
-        return activityDao.getInAvailableRange(currentPageInt, postOnPage, userEmail);
+    public int getUserActivitiesPages(long userId) {
+        return activityDao.getPageCountForUserActivities(userId);
     }
 
     @Override
-    public int getPageCount(String userEmail, int postOnPage) {
-        return activityDao.getPageCount(userEmail) % postOnPage == 0 ? activityDao.getPageCount(userEmail) / postOnPage :
-                activityDao.getPageCount(userEmail) / postOnPage + 1;
+    public int getActiveActivitiesPages(long userId) {
+        return activityDao.getPageCountForActiveActivities(userId);
     }
+
+
 }
 
 //TODO add pagination

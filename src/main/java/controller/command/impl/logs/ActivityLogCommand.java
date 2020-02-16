@@ -30,18 +30,27 @@ public class ActivityLogCommand implements Command {
         if (user == null) {
             return new Page(ViewPathConstant.LOGIN, true);
         }
+        String page = request.getParameter("page");
         boolean isAdmin = AuthUtils.hasAuthority(request, Role.ADMIN);
 
-        request.setAttribute("logs", getLogs(request, user));
+        request.setAttribute("logs", getLogs(request, user, page));
         request.setAttribute("activities", activityService.getAllActivityByUser(user.getId()));
+        request.setAttribute("currentPage", request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1);
+        request.setAttribute("pageCount", countPages(request, user));
         request.setAttribute("admin", isAdmin);
         return new Page(ViewPathConstant.LOGS);
     }
 
-    private List<ActivityLog> getLogs(HttpServletRequest request, User user) {
+    private List<ActivityLog> getLogs(HttpServletRequest request, User user, String currentPage) {
         String activityId = request.getParameter("activityId");
-        return (activityId == null) ? activityLogService.getAllByUser(user.getId())
-                : activityLogService.getAllByUserAndActivity(user.getId(), Long.parseLong(activityId));
+        return (activityId == null) ? activityLogService.getAllByUser(user.getId(), currentPage)
+                : activityLogService.getAllByUserAndActivity(user.getId(), Long.parseLong(activityId), currentPage);
+    }
+
+    private int countPages(HttpServletRequest request, User user) {
+        String activityId = request.getParameter("activityId");
+        return (activityId == null) ? activityLogService.getAllByUserPages(user.getId())
+                : activityLogService.getAllByUserAndActivityPages(user.getId(), Long.parseLong(activityId));
     }
 
 }

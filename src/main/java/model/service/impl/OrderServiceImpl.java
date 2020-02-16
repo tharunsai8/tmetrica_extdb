@@ -36,6 +36,16 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    public int getAllReviewedPages() {
+        return orderDao.getAllReviewedPages();
+    }
+
+    @Override
+    public int getAllPendingPages() {
+        return orderDao.getAllPendingPages();
+    }
+
+    @Override
     public List<Order> getAll() {
         return orderDao.getAll();
     }
@@ -43,6 +53,11 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public List<Order> getAllPending() {
         return orderDao.getAllPending();
+    }
+
+    @Override
+    public List<Order> getAllPending(String page) {
+        return orderDao.getAllPending(page);
     }
 
     @Override
@@ -113,8 +128,13 @@ public class OrderServiceImpl implements OrderService{
         }
     }
 
+    @Override
+    public List<Order> getAllReviewed(String currentPage) {
+        return orderDao.getAllReviewed(currentPage);
+    }
+
     private void prepareCreateOrderToApprove(Order order, Activity activity) {
-        activity = Activity.newBuilder().setStatus(ActivityStatus.ACTIVE).build();
+        activity = Activity.newBuilder().modifyStatus(activity, ActivityStatus.ACTIVE).build();
         Activity activityToSave = activityService.updateAndReturn(activity);
         order.setActivity(activityToSave);
     }

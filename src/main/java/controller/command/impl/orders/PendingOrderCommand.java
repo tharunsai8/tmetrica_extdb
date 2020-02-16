@@ -24,8 +24,11 @@ public class PendingOrderCommand implements Command {
             return new Page(ViewPathConstant.LOGIN, true);
         } else if (!AuthUtils.hasAuthority(request, Role.ADMIN))
             return new Page(ViewPathConstant.ERROR_403);
-        request.setAttribute("orders", orderService.getAllPending());
+        String page = request.getParameter("page");
+        request.setAttribute("orders", orderService.getAllPending(page));
         request.setAttribute("active", true);
+        request.setAttribute("pageCount", orderService.getAllPendingPages());
+        request.setAttribute("currentPage", request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1);
         request.setAttribute("admin", true);
         return new Page(ViewPathConstant.ORDERS);
     }

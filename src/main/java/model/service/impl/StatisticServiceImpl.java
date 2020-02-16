@@ -17,4 +17,14 @@ public class StatisticServiceImpl implements StatisticService {
     public List<Statistic> getStatisticByUser(long userId) {
         return statisticDao.getAllByUser(userId);
     }
+
+    @Override
+    public int getPages(long userId) {
+        return statisticDao.getAllByUserPages(userId);
+    }
+
+    @Override
+    public List<Statistic> getStatisticByUser(long userId, String currentPage) {
+        return statisticDao.getAllByUser(userId, currentPage);
+    }
 }

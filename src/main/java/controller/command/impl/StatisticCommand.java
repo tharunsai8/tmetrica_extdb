@@ -25,9 +25,12 @@ public class StatisticCommand implements Command {
         if (user == null) {
             return new Page(ViewPathConstant.LOGIN, true);
         }
+        String page = request.getParameter("page");
         boolean isAdmin = AuthUtils.hasAuthority(request, Role.ADMIN);
-        request.setAttribute("stats", statisticService.getStatisticByUser(user.getId()));
+        request.setAttribute("stats", statisticService.getStatisticByUser(user.getId(), page));
         request.setAttribute("admin", isAdmin);
+        request.setAttribute("pageCount", statisticService.getPages(user.getId()));
+        request.setAttribute("currentPage", request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1);
         return new Page(ViewPathConstant.STATISTIC);
     }
 }

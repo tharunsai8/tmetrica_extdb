@@ -96,12 +96,43 @@ public class OrderDao extends AbstractJDBCDao<Order> {
     }
 
     public List<Order> getAllPending() {
-        return getAll(bundle.getString("order.get.all.pendind"),
+        return getAll(bundle.getString("order.get.all.pending"),
                 getMapper());
     }
 
     public List<Order> getAllReviewed() {
         return getAll(bundle.getString("order.get.all.reviewed"),
                 getMapper());
+    }
+
+    public int getAllReviewedPages() {
+        return countPages(bundle.getString("order.get.all.reviewed.count"), ps -> {
+        }) / OBJECT_ON_PAGE + 1;
+    }
+
+    public int getAllPendingPages() {
+        return countPages(bundle.getString("order.get.all.pending.count"), ps -> {
+        }) / OBJECT_ON_PAGE + 1;
+    }
+
+    public List<Order> getAllReviewed(String currentPage) {
+        int currentPageInt = currentPage != null ? Integer.parseInt(currentPage) : 1;
+        currentPageInt = currentPageInt <= 0 ? 0 : (currentPageInt - 1) * OBJECT_ON_PAGE;
+        int offset = currentPageInt;
+        return getAllWithCondition(bundle.getString("order.get.all.reviewed.pages"), getMapper(), ps -> {
+            ps.setInt(1, OBJECT_ON_PAGE);
+            ps.setInt(2, offset);
+        });
+    }
+
+
+    public List<Order> getAllPending(String currentPage) {
+        int currentPageInt = currentPage != null ? Integer.parseInt(currentPage) : 1;
+        currentPageInt = currentPageInt <= 0 ? 0 : (currentPageInt - 1) * OBJECT_ON_PAGE;
+        int offset = currentPageInt;
+        return getAllWithCondition(bundle.getString("order.get.all.pending.pages"), getMapper(), ps -> {
+            ps.setInt(1, OBJECT_ON_PAGE);
+            ps.setInt(2, offset);
+        });
     }
 }

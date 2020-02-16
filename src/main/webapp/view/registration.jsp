@@ -31,12 +31,14 @@
                                     <label for="inputEmail">Name</label>
                                 </div>
                                 <div class="form-label-group">
-                                    <input type="password" id="password" name="password" class="form-control"
+                                    <input type="password" id="password" minlength="8"
+                                           maxlength="16" name="password" class="form-control"
                                            placeholder="Password" required>
                                     <label for="password">Password</label>
                                 </div>
                                 <div class="form-label-group">
-                                    <input type="password" id="confirm_password" name="confirm_password"
+                                    <input type="password" minlength="8"
+                                           maxlength="16" id="confirm_password" name="confirm_password"
                                            class="form-control" placeholder="Confirm password" required>
                                     <label for="confirm_password">Confirm password</label>
                                     <span id='message'></span>
@@ -64,9 +66,9 @@
 <script>
     $('#password, #confirm_password').on('keyup', function () {
         if ($('#password').val() == $('#confirm_password').val()) {
-            $('#message').html('Matching').css('color', 'green');
+             $('#message').html('').css('color', 'green');
         } else
-            $('#message').html('Not Matching').css('color', 'red');
+            $('#message').html('  Passwords do not match').css('color', 'red');
     });
 
 </script>

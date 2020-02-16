@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <%@include file="include/head.jsp" %>
-    <title>Activities</title>
+    <title>Tmetrica - Activities</title>
 </head>
 <body>
 <%@include file="include/navbar.jsp" %>
@@ -59,6 +59,8 @@
                     <c:when test="${usersList}">
                         <th><fmt:message bundle="${link}"
                                          key="activities.my.table.sixth"/></th>
+                        <th><fmt:message bundle="${link}"
+                                         key="delete.button"/></th>
                     </c:when>
                     <c:otherwise>
                         <th><fmt:message bundle="${link}"
@@ -92,9 +94,10 @@
                             </td>
                         </c:otherwise>
                     </c:choose>
-                    <td>
-                        <c:choose>
-                            <c:when test="${usersList}">
+
+                    <c:choose>
+                        <c:when test="${usersList}">
+                            <td>
                                 <form method="get" action="${pageContext.request.contextPath}/logs">
                                     <input type="hidden" name="activityId" value="${item.id}">
                                     <button class="success" type="submit"><i
@@ -102,29 +105,39 @@
                                             data-toggle="tooltip"
                                             title="Show entries">&#xe8ef;</i></button>
                                 </form>
+                            </td>
+                            <td>
                                 <a href="#deleteRecordModal" class="delete passingIDDelete" data-id="${item.id}"
                                    data-toggle="modal"><i
                                         class="material-icons"
                                         data-toggle="tooltip"
                                         title="Delete">&#xE872;</i></a>
-                            </c:when>
-                            <c:otherwise><a href="#joinToActivModel" class="success passingID" data-id="${item.id}"
-                                            data-toggle="modal"><i
+                            </td>
+                        </c:when>
+                        <c:otherwise>
+                            <td><a href="#joinToActivModel" class="success passingID" data-id="${item.id}"
+                                   data-toggle="modal"><i
                                     class="material-icons"
                                     data-toggle="tooltip"
-                                    title="join">&#xe147;</i></a></c:otherwise>
+                                    title="join">&#xe147;</i></a>
+                            </td>
+                        </c:otherwise>
 
-                        </c:choose>
-                    </td>
+                    </c:choose>
+
 
                 </tr>
             </c:forEach>
-
             </tbody>
+
         </table>
 
     </div>
+    <%@include file="include/pager.jsp" %>
+    <br>
+    <br>
 </div>
+
 
 <!-- Delete Modal HTML -->
 <div id="deleteRecordModal" class="modal fade">
@@ -207,8 +220,8 @@
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" class="form-control" name="activityId" id="actId" value="">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="<fmt:message bundle="${link}"
+                key="cancel"/>">
 
                     <c:choose>
                         <c:when test="${admin}">

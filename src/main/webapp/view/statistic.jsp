@@ -4,6 +4,7 @@
 <html lang="en">
 <head>
     <%@include file="include/head.jsp" %>
+    <title>Tmetrica - Statistic</title>
 
 
 </head>
@@ -76,6 +77,9 @@
         </table>
 
     </div>
+    <%@include file="include/pager.jsp" %>
+    <br>
+    <br>
 </div>
 
 

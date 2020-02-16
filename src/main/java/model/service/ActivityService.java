@@ -13,6 +13,9 @@ public interface ActivityService extends Service {
     boolean create(Activity activity, long userId);
 
     List<Activity> getActiveActivityByUser(long userId);
+    List<Activity> getActiveActivityByUser(long userId, String currentPage);
+
+    List<Activity> getAllActivityByUser(long userId, String currentPage);
 
     List<Activity> getAllActivityByUser(long userId);
 
@@ -28,9 +31,8 @@ public interface ActivityService extends Service {
 
     boolean deleteUserFromActivity(Activity activity, User user);
 
-    List<Activity> getActivityList(String currentPage, String userEmail, int postOnPage);
+    int getUserActivitiesPages(long userId);
 
-    List<Activity> getAvailableActivityList(String currentPage, String userEmail, int postOnPage);
+    int getActiveActivitiesPages(long userId);
 
-    int getPageCount(String userEmail, int postOnPage);
 }

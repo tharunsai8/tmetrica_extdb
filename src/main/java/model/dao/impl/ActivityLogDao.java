@@ -96,4 +96,38 @@ public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
             ps.setLong(2, activityId);
         });
     }
+
+    public int getAllByUserPages(long userId) {
+        return countPages(bundle.getString("log.get.by.user.count"), ps -> ps.setLong(1, userId)) / OBJECT_ON_PAGE + 1;
+    }
+
+    public int getAllByUserAndActivityPages(long userId, long activityId) {
+        return countPages(bundle.getString("log.get.by.user.and.activity.count"), ps -> {
+            ps.setLong(1, userId);
+            ps.setLong(2, activityId);
+        }) / OBJECT_ON_PAGE + 1;
+    }
+
+    public List<ActivityLog> getAllByUser(long userId, String currentPage) {
+        int currentPageInt = currentPage != null ? Integer.parseInt(currentPage) : 1;
+        currentPageInt = currentPageInt <= 0 ? 0 : (currentPageInt - 1) * OBJECT_ON_PAGE;
+        int offset = currentPageInt;
+        return getAllWithCondition(bundle.getString("log.get.by.user.pages"), getMapper(), ps -> {
+            ps.setLong(1, userId);
+            ps.setInt(2, OBJECT_ON_PAGE);
+            ps.setInt(3, offset);
+        });
+    }
+
+    public List<ActivityLog> getAllByUserAndActivity(long userId, long activityId, String currentPage) {
+        int currentPageInt = currentPage != null ? Integer.parseInt(currentPage) : 1;
+        currentPageInt = currentPageInt <= 0 ? 0 : (currentPageInt - 1) * OBJECT_ON_PAGE;
+        int offset = currentPageInt;
+        return getAllWithCondition(bundle.getString("log.get.by.user.and.activity.pages"), getMapper(), ps -> {
+            ps.setLong(1, userId);
+            ps.setLong(2, activityId);
+            ps.setInt(3, OBJECT_ON_PAGE);
+            ps.setInt(4, offset);
+        });
+    }
 }

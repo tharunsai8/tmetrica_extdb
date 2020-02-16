@@ -96,6 +96,9 @@
         </table>
 
     </div>
+    <%@include file="include/pager.jsp" %>
+    <br>
+    <br>
 </div>
 
 <!--  Reject Modal HTML -->

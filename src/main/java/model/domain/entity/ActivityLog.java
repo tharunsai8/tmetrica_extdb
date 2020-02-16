@@ -1,9 +1,10 @@
 package model.domain.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class ActivityLog {
+public class ActivityLog implements Serializable {
 
     private long id;
     private Activity activity;

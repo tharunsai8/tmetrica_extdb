@@ -52,8 +52,18 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     }
 
     @Override
+    public List<ActivityLog> getAllByUser(long userId, String currentPage) {
+        return logDao.getAllByUser(userId, currentPage);
+    }
+
+    @Override
     public List<ActivityLog> getAllByUserAndActivity(long userId, long activityId) {
         return logDao.getAllByUserAndActivity(userId, activityId);
+    }
+
+    @Override
+    public List<ActivityLog> getAllByUserAndActivity(long userId, long activityId, String currentPage) {
+        return logDao.getAllByUserAndActivity(userId, activityId, currentPage);
     }
 
     @Override
@@ -83,6 +93,16 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     public boolean delete(long logId) {
         ActivityLog log = logDao.getById(logId);
         return logDao.remove(log);
+    }
+
+    @Override
+    public int getAllByUserPages(long userId) {
+        return logDao.getAllByUserPages(userId);
+    }
+
+    @Override
+    public int getAllByUserAndActivityPages(long userId, long activityId) {
+        return logDao.getAllByUserAndActivityPages(userId, activityId);
     }
 
     //TODO add pagination
