@@ -5,6 +5,7 @@ import model.dao.EntityMapper;
 import model.domain.entity.Activity;
 import model.domain.entity.Statistic;
 import model.domain.enums.ActivityStatus;
+import org.apache.log4j.Logger;
 
 import java.time.Duration;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.ResourceBundle;
  * The type Statistic dao.
  */
 public class StatisticDao extends AbstractJDBCDao<Statistic> {
+    private static final Logger LOG = Logger.getLogger(ActivityDao.class);
     private final String ID = "activity_id";
     private final String NAME = "activity_name";
     private final String STATUS = "activity_status";
@@ -52,7 +54,7 @@ public class StatisticDao extends AbstractJDBCDao<Statistic> {
      * @return the all by user pages
      */
     public int getAllByUserPages(long userId) {
-        return countPages(bundle.getString("stats.count"), ps -> {
+        return count(bundle.getString("stats.count"), ps -> {
             ps.setLong(1, userId);
         }) / OBJECT_ON_PAGE + 1;
     }
@@ -68,6 +70,7 @@ public class StatisticDao extends AbstractJDBCDao<Statistic> {
         int currentPageInt = currentPage != null ? Integer.parseInt(currentPage) : 1;
         currentPageInt = currentPageInt <= 0 ? 0 : (currentPageInt - 1) * OBJECT_ON_PAGE;
         int offset = currentPageInt;
+        LOG.info("Trying execute " + bundle.getString("log.get.by.user.pages") + "userId: " + userId + " LIMIT: " + OBJECT_ON_PAGE + " OFFSET: " + offset);
         return getAllWithCondition(bundle.getString("stats.get.pages"), getMapper(), ps -> {
             ps.setLong(1, userId);
             ps.setInt(2, OBJECT_ON_PAGE);

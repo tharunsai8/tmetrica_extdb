@@ -1,6 +1,7 @@
 package model.persistance;
 
 import com.impossibl.postgres.jdbc.PGDataSource;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -14,6 +15,7 @@ import java.util.Properties;
  * The type Data source factory.
  */
 public final class DataSourceFactory {
+    private static Logger LOG = Logger.getLogger(DataSourceFactory.class);
 
     /**
      * The constant DB_PROPERTIES.
@@ -63,7 +65,7 @@ public final class DataSourceFactory {
             source.setPassword(properties.getProperty(DB_PASSWORD));
             dataSource = source;
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error("Properties not load ", e);
         }
     }
 
@@ -77,7 +79,7 @@ public final class DataSourceFactory {
         try {
             connection = dataSource.getConnection();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Exception connection create ", e);
         }
         return connection;
     }

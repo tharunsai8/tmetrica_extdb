@@ -4,6 +4,7 @@ import model.dao.AbstractJDBCDao;
 import model.dao.EntityMapper;
 import model.domain.entity.User;
 import model.domain.enums.Role;
+import org.apache.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.stream.Stream;
  * The type User dao.
  */
 public class UserDao extends AbstractJDBCDao<User> {
+    private static final Logger LOG = Logger.getLogger(ActivityDao.class);
     private final String ID = "id";
     private final String EMAIL = "email";
     private final String PASSWORD = "password";
@@ -24,6 +26,7 @@ public class UserDao extends AbstractJDBCDao<User> {
 
     @Override
     public User getById(long id) {
+        LOG.info("Trying execute " + bundle.getString("user.get.id") + "id: " + id);
         return getById(bundle.getString("user.get.id"),
                 ps -> ps.setLong(1, id),
                 getMapper());
@@ -31,12 +34,14 @@ public class UserDao extends AbstractJDBCDao<User> {
 
     @Override
     public List<User> getAll() {
+        LOG.info("Trying execute " + bundle.getString("user.get.all"));
         return getAll(bundle.getString("user.get.all"),
                 getMapper());
     }
 
     @Override
     public boolean create(User user) {
+        LOG.info("Trying execute " + bundle.getString("user.add"));
         long id = createUpdateWithReturn((bundle.getString("user.add")),
                 (ps -> {
                     ps.setString(1, user.getEmail());
@@ -62,6 +67,7 @@ public class UserDao extends AbstractJDBCDao<User> {
      * @return the by email
      */
     public User getByEmail(String email) {
+        LOG.info("Trying execute " + bundle.getString("user.get.email") + " email: " + email);
         return getById(bundle.getString("user.get.email"),
                 ps -> ps.setString(1, email),
                 getMapper());

@@ -11,6 +11,7 @@ import model.factory.ServiceFactory;
 import model.factory.ServiceType;
 import model.service.ActivityService;
 import model.service.UserService;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.ResourceBundle;
@@ -19,6 +20,7 @@ import java.util.ResourceBundle;
  * The type Order dao.
  */
 public class OrderDao extends AbstractJDBCDao<Order> {
+    private static final Logger LOG = Logger.getLogger(ActivityDao.class);
     private final String ID = "id";
     private final String ACTION = "action";
     private final String STATUS = "status";
@@ -38,6 +40,7 @@ public class OrderDao extends AbstractJDBCDao<Order> {
 
     @Override
     public Order getById(long id) {
+        LOG.info("Trying execute " + bundle.getString("order.get.id") + "id: " + id);
         return getById(bundle.getString("order.get.id"),
                 ps -> ps.setLong(1, id),
                 getMapper()
@@ -46,12 +49,14 @@ public class OrderDao extends AbstractJDBCDao<Order> {
 
     @Override
     public List<Order> getAll() {
+        LOG.info("Trying execute " + bundle.getString("order.get.all"));
         return getAll(bundle.getString("order.get.all"),
                 getMapper());
     }
 
     @Override
     public boolean create(Order entity) {
+        LOG.info("Trying execute " + bundle.getString("order.create") + " order: " + entity);
         return createUpdate(bundle.getString("order.create"),
                 ps -> {
                     ps.setObject(1, entity.getAction());
@@ -68,6 +73,7 @@ public class OrderDao extends AbstractJDBCDao<Order> {
      * @return the order
      */
     public Order createAndReturn(Order entity) {
+        LOG.info("Trying execute " + bundle.getString("order.create") + " order: " + entity);
         long id = createUpdateWithReturn(bundle.getString("order.create"),
                 ps -> {
                     ps.setObject(1, entity.getAction());
@@ -80,6 +86,7 @@ public class OrderDao extends AbstractJDBCDao<Order> {
 
     @Override
     public boolean update(Order entity) {
+        LOG.info("Trying execute " + bundle.getString("order.update") + " order: " + entity);
         return createUpdate(bundle.getString("order.update"),
                 ps -> {
                     ps.setObject(1, entity.getStatus());
@@ -89,6 +96,7 @@ public class OrderDao extends AbstractJDBCDao<Order> {
 
     @Override
     public boolean remove(Order entity) {
+        LOG.info("Trying execute " + bundle.getString("order.remove") + " order: " + entity);
         return createUpdate(bundle.getString("order.remove"),
                 ps -> ps.setLong(1, entity.getId()));
     }
@@ -113,6 +121,7 @@ public class OrderDao extends AbstractJDBCDao<Order> {
      * @return the all pending
      */
     public List<Order> getAllPending() {
+        LOG.info("Trying execute " + bundle.getString("order.get.all.pending"));
         return getAll(bundle.getString("order.get.all.pending"),
                 getMapper());
     }
@@ -133,7 +142,7 @@ public class OrderDao extends AbstractJDBCDao<Order> {
      * @return the all reviewed pages
      */
     public int getAllReviewedPages() {
-        return countPages(bundle.getString("order.get.all.reviewed.count"), ps -> {
+        return count(bundle.getString("order.get.all.reviewed.count"), ps -> {
         }) / OBJECT_ON_PAGE + 1;
     }
 
@@ -143,7 +152,7 @@ public class OrderDao extends AbstractJDBCDao<Order> {
      * @return the all pending pages
      */
     public int getAllPendingPages() {
-        return countPages(bundle.getString("order.get.all.pending.count"), ps -> {
+        return count(bundle.getString("order.get.all.pending.count"), ps -> {
         }) / OBJECT_ON_PAGE + 1;
     }
 
@@ -157,6 +166,7 @@ public class OrderDao extends AbstractJDBCDao<Order> {
         int currentPageInt = currentPage != null ? Integer.parseInt(currentPage) : 1;
         currentPageInt = currentPageInt <= 0 ? 0 : (currentPageInt - 1) * OBJECT_ON_PAGE;
         int offset = currentPageInt;
+        LOG.info("Trying execute " + bundle.getString("log.get.by.user.pages") +  " LIMIT: " + OBJECT_ON_PAGE + " OFFSET: " + offset);
         return getAllWithCondition(bundle.getString("order.get.all.reviewed.pages"), getMapper(), ps -> {
             ps.setInt(1, OBJECT_ON_PAGE);
             ps.setInt(2, offset);
@@ -174,6 +184,7 @@ public class OrderDao extends AbstractJDBCDao<Order> {
         int currentPageInt = currentPage != null ? Integer.parseInt(currentPage) : 1;
         currentPageInt = currentPageInt <= 0 ? 0 : (currentPageInt - 1) * OBJECT_ON_PAGE;
         int offset = currentPageInt;
+        LOG.info("Trying execute " + bundle.getString("log.get.by.user.pages") + " LIMIT: " + OBJECT_ON_PAGE + " OFFSET: " + offset);
         return getAllWithCondition(bundle.getString("order.get.all.pending.pages"), getMapper(), ps -> {
             ps.setInt(1, OBJECT_ON_PAGE);
             ps.setInt(2, offset);

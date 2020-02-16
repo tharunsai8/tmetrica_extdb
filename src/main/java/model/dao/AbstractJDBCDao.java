@@ -2,6 +2,7 @@ package model.dao;
 
 
 import model.persistance.DataSourceFactory;
+import org.apache.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +16,7 @@ import java.util.List;
  * @param <T> the type parameter
  */
 public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
+    private static final Logger LOG = Logger.getLogger(AbstractJDBCDao.class);
     /**
      * The constant OBJECT_ON_PAGE.
      */
@@ -65,7 +67,7 @@ public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
             }
             closeConnection(preparedStatement);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Exception while creating model with returning model id", e);
         }
         return -1;
     }
@@ -93,7 +95,7 @@ public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
 
         } catch (SQLException e) {
 
-            e.printStackTrace();
+            LOG.error("Exception while getting all models", e);
         }
 
         return result;
@@ -122,8 +124,7 @@ public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
             closeConnection(preparedStatement);
 
         } catch (SQLException e) {
-
-            e.printStackTrace();
+            LOG.error("Exception while getting models by condition", e);
         }
 
         return result;
@@ -143,7 +144,7 @@ public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
             closeConnection(preparedStatement);
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Exception while getting model", e);
         }
 
         return result;
@@ -165,7 +166,7 @@ public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
 
             return result == 1;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Exception while creating or updating model", e);
         }
 
         return false;
@@ -178,7 +179,7 @@ public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
      * @param statementMapper the statement mapper
      * @return the int
      */
-    public int countPages(String query, StatementMapper<T> statementMapper) {
+    public int count(String query, StatementMapper<T> statementMapper) {
         try (PreparedStatement preparedStatement = DataSourceFactory.getPreparedStatement(query)) {
             statementMapper.map(preparedStatement);
             int result = -1;
@@ -191,7 +192,7 @@ public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
 
             return result;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Exception while trying to count models by condition", e);
         }
 
         return -1;

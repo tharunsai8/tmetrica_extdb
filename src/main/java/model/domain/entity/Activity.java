@@ -231,6 +231,19 @@ public final class Activity{
     }
 
     @Override
+    public String toString() {
+        return "Activity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", openingTime=" + openingTime +
+                ", closingTime=" + closingTime +
+                ", status=" + status +
+                ", users=" + users +
+                ", logs=" + logs +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(id, name, openingTime, closingTime, status, users, logs);
     }

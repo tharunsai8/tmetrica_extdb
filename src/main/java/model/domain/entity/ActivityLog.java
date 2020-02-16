@@ -150,12 +150,14 @@ public class ActivityLog {
         return endTime;
     }
 
-    /**
-     * Sets end time.
-     *
-     * @param endTime the end time
-     */
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+    @Override
+    public String toString() {
+        return "ActivityLog{" +
+                "id=" + id +
+                ", activity=" + activity +
+                ", user=" + user +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                '}';
     }
 }

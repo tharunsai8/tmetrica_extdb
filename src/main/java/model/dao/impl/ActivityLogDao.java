@@ -9,6 +9,7 @@ import model.factory.ServiceFactory;
 import model.factory.ServiceType;
 import model.service.ActivityService;
 import model.service.UserService;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.ResourceBundle;
@@ -17,6 +18,7 @@ import java.util.ResourceBundle;
  * The type Activity log dao.
  */
 public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
+    private static final Logger LOG = Logger.getLogger(ActivityDao.class);
     private static final String USER_ID = "user_id";
     private static final String ACTIVITY_ID = "activity_id";
     private static final String ID = "id";
@@ -36,6 +38,7 @@ public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
 
     @Override
     public ActivityLog getById(long id) {
+        LOG.info("Trying execute " + bundle.getString("log.get.id") + "id: " + id);
         return getById(bundle.getString("log.get.id"),
                 ps -> ps.setLong(1, id),
                 getMapper());
@@ -43,12 +46,14 @@ public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
 
     @Override
     public List<ActivityLog> getAll() {
+        LOG.info("Trying execute " + bundle.getString("log.get.all"));
         return getAll(bundle.getString("log.get.all"),
                 getMapper());
     }
 
     @Override
     public boolean create(ActivityLog entity) {
+        LOG.info("Trying execute " + bundle.getString("log.add") + " log: " + entity);
         return createUpdate(bundle.getString("log.add"),
                 ps -> {
                     ps.setLong(1, entity.getActivity().getId());
@@ -60,6 +65,7 @@ public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
 
     @Override
     public boolean update(ActivityLog entity) {
+        LOG.info("Trying execute " + bundle.getString("log.update") + " log: " + entity);
         return createUpdate(bundle.getString("log.update"),
                 ps -> {
                     ps.setLong(1, entity.getActivity().getId());
@@ -72,12 +78,14 @@ public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
 
     @Override
     public boolean remove(ActivityLog entity) {
+        LOG.info("Trying execute " + bundle.getString("log.remove") + " log: " + entity);
         return createUpdate(bundle.getString("log.remove"),
                 ps -> ps.setLong(1, entity.getId()));
     }
 
     @Override
     public EntityMapper<ActivityLog> getMapper() {
+        LOG.info("Map statement");
         return rs -> {
             Activity activity = activityService.getById(rs.getLong(ACTIVITY_ID));
             User user = userService.getById(rs.getLong(USER_ID));
@@ -97,6 +105,7 @@ public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
      * @return the all by user
      */
     public List<ActivityLog> getAllByUser(long userId) {
+        LOG.info("Trying execute " + bundle.getString("log.get.by.user") + " userId: " + userId);
         return getAllWithCondition(bundle.getString("log.get.by.user"), getMapper(), ps -> {
             ps.setLong(1, userId);
         });
@@ -110,6 +119,7 @@ public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
      * @return the all by user and activity
      */
     public List<ActivityLog> getAllByUserAndActivity(long userId, long activityId) {
+        LOG.info("Trying execute " + bundle.getString("log.get.by.user") + " userId: " + userId + " activityId: " + activityId);
         return getAllWithCondition(bundle.getString("log.get.by.user.and.activity"), getMapper(), ps -> {
             ps.setLong(1, userId);
             ps.setLong(2, activityId);
@@ -123,7 +133,8 @@ public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
      * @return the all by user pages
      */
     public int getAllByUserPages(long userId) {
-        return countPages(bundle.getString("log.get.by.user.count"), ps -> ps.setLong(1, userId)) / OBJECT_ON_PAGE + 1;
+        LOG.info("Trying execute " + bundle.getString("log.get.by.user.count") + " userId: " + userId);
+        return count(bundle.getString("log.get.by.user.count"), ps -> ps.setLong(1, userId)) / OBJECT_ON_PAGE + 1;
     }
 
     /**
@@ -134,7 +145,8 @@ public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
      * @return the all by user and activity pages
      */
     public int getAllByUserAndActivityPages(long userId, long activityId) {
-        return countPages(bundle.getString("log.get.by.user.and.activity.count"), ps -> {
+        LOG.info("Trying execute " + bundle.getString("log.get.by.user.and.activity.count") + " userId: " + userId + " activityId: " + activityId);
+        return count(bundle.getString("log.get.by.user.and.activity.count"), ps -> {
             ps.setLong(1, userId);
             ps.setLong(2, activityId);
         }) / OBJECT_ON_PAGE + 1;
@@ -151,6 +163,7 @@ public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
         int currentPageInt = currentPage != null ? Integer.parseInt(currentPage) : 1;
         currentPageInt = currentPageInt <= 0 ? 0 : (currentPageInt - 1) * OBJECT_ON_PAGE;
         int offset = currentPageInt;
+        LOG.info("Trying execute " + bundle.getString("log.get.by.user.pages") + "userId: " + userId + " LIMIT: " + OBJECT_ON_PAGE + " OFFSET: " + offset);
         return getAllWithCondition(bundle.getString("log.get.by.user.pages"), getMapper(), ps -> {
             ps.setLong(1, userId);
             ps.setInt(2, OBJECT_ON_PAGE);
@@ -170,6 +183,7 @@ public class ActivityLogDao extends AbstractJDBCDao<ActivityLog> {
         int currentPageInt = currentPage != null ? Integer.parseInt(currentPage) : 1;
         currentPageInt = currentPageInt <= 0 ? 0 : (currentPageInt - 1) * OBJECT_ON_PAGE;
         int offset = currentPageInt;
+        LOG.info("Trying execute " + bundle.getString("log.get.by.user.and.activity.pages") + "userId: " + userId + " LIMIT: " + OBJECT_ON_PAGE + " OFFSET: " + offset);
         return getAllWithCondition(bundle.getString("log.get.by.user.and.activity.pages"), getMapper(), ps -> {
             ps.setLong(1, userId);
             ps.setLong(2, activityId);
