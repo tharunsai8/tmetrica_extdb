@@ -57,14 +57,20 @@ public abstract class AbstractJDBCDao<T> implements EntityDao<T> {
     public long createUpdateWithReturn(String query, StatementMapper<T> statementMapper) {
         try (PreparedStatement preparedStatement = DataSourceFactory.getPreparedStatementWithReturning(query)) {
             statementMapper.map(preparedStatement);
+            preparedStatement.getConnection().setAutoCommit(false);
             int result = preparedStatement.executeUpdate();
+
             if (result != 0) {
                 try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
-                        return (generatedKeys.getLong(1));
+                        long id = generatedKeys.getLong(1);
+                        preparedStatement.getConnection().commit();
+                        closeConnection(preparedStatement);
+                        return id;
                     }
                 }
             }
+            preparedStatement.getConnection().commit();
             closeConnection(preparedStatement);
         } catch (SQLException e) {
             LOG.error("Exception while creating model with returning model id", e);
