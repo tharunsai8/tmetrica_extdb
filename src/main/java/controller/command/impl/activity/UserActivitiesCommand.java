@@ -9,6 +9,7 @@ import model.domain.enums.Role;
 import model.factory.ServiceFactory;
 import model.factory.ServiceType;
 import model.service.ActivityService;
+import model.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,12 +20,14 @@ import java.io.IOException;
  */
 public class UserActivitiesCommand implements Command {
     private ActivityService activityService;
+    private UserService userService;
 
     /**
      * Instantiates a new User activities command.
      */
     public UserActivitiesCommand() {
         this.activityService = (ActivityService) ServiceFactory.getService(ServiceType.ACTIVITY);
+        this.userService = (UserService) ServiceFactory.getService(ServiceType.USERS);
     }
 
     @Override
@@ -35,6 +38,9 @@ public class UserActivitiesCommand implements Command {
         }
         String page = request.getParameter("page");
         boolean isAdmin = AuthUtils.hasAuthority(request, Role.ADMIN);
+        if (isAdmin) {
+            request.setAttribute("users", userService.getAll());
+        }
         request.setAttribute("activities", activityService.getAllActivityByUser(user.getId(), page));
         request.setAttribute("admin", isAdmin);
         request.setAttribute("currentPage", request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1);

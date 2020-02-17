@@ -65,9 +65,13 @@
                     <c:otherwise>
                         <th><fmt:message bundle="${link}"
                                          key="activities.all.table.fifth"/></th>
+
                     </c:otherwise>
                 </c:choose>
-
+                <c:if test="${admin}">
+                    <th><fmt:message bundle="${link}"
+                                     key="user.add"/></th>
+                </c:if>
             </tr>
             </thead>
             <tbody>
@@ -121,10 +125,19 @@
                                     data-toggle="tooltip"
                                     title="join">&#xe147;</i></a>
                             </td>
+
+
                         </c:otherwise>
 
                     </c:choose>
-
+                    <c:if test="${admin}">
+                        <td><a href="#joinUserToActivModel" class="success passingIDUser" data-id="${item.id}"
+                               data-toggle="modal"><i
+                                class="material-icons"
+                                data-toggle="tooltip"
+                                title="join">&#xe8a6;</i></a>
+                        </td>
+                    </c:if>
 
                 </tr>
             </c:forEach>
@@ -238,6 +251,49 @@
         </div>
     </div>
 </div>
+
+
+<div id="joinUserToActivModel" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="${pageContext.request.contextPath}/join">
+                <div class="modal-header">
+                    <h4 class="modal-title"><fmt:message bundle="${link}"
+                                                         key="user.join.header"/></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p><fmt:message bundle="${link}"
+                                    key="user.join"/></p>
+                    <label>Select user</label>
+                    <select class="form-control" name="userId" exampleFormControlSelect1">
+                    <c:forEach var="user" items="${users}">
+                        <option value="${user.id}">${user.name}</option>
+                    </c:forEach>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" class="form-control" name="activityId" id="activId" value="">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="<fmt:message bundle="${link}"
+                key="cancel"/>">
+
+                    <c:choose>
+                        <c:when test="${admin}">
+                            <input type="submit" class="btn btn-success" value="<fmt:message bundle="${link}"
+                key="activities.join.title"/>">
+                        </c:when>
+                        <c:otherwise>
+                            <input type="submit" class="btn btn-success" value="<fmt:message bundle="${link}"
+                key="activities.add.user.ok"/>">
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <script>
     $(".passingIDDelete").click(function () {
         var ids = $(this).attr('data-id');
@@ -248,6 +304,11 @@
         var ids = $(this).attr('data-id');
         $("#actId").val(ids);
         $('#joinToActivModel').modal('show');
+    });
+    $(".passingIDUser").click(function () {
+        var ids = $(this).attr('data-id');
+        $("#activId").val(ids);
+        $('#joinUserToActivModel').modal('show');
     });
 </script>
 

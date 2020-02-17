@@ -74,7 +74,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User validateUser(String email, String password) {
         User user = userDao.getByEmail(email);
-        return (BCrypt.checkpw(password, user.getPassword())) ? user : null;
+        if (user != null) {
+            return (BCrypt.checkpw(password, user.getPassword())) ? user : null;
+        }
+        return null;
+
     }
 
 }

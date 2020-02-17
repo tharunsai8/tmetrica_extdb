@@ -10,6 +10,7 @@ import model.domain.enums.Role;
 import model.factory.ServiceFactory;
 import model.factory.ServiceType;
 import model.service.OrderService;
+import model.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import java.io.IOException;
  */
 public class JoinOrderCommand implements Command {
     private OrderService orderService;
+    private UserService userService;
 
 
     /**
@@ -27,6 +29,7 @@ public class JoinOrderCommand implements Command {
      */
     public JoinOrderCommand() {
         this.orderService = (OrderService) ServiceFactory.getService(ServiceType.ORDERS);
+        this.userService = (UserService) ServiceFactory.getService(ServiceType.USERS);
     }
 
     @Override
@@ -41,6 +44,11 @@ public class JoinOrderCommand implements Command {
 
     private boolean createOrder(HttpServletRequest request, String email) {
         long activityId = Long.parseLong(request.getParameter("activityId"));
+        String userIdStr = request.getParameter("userId");
+        if (userIdStr != null) {
+            long userId = Long.parseLong(request.getParameter("userId"));
+            email = userService.getById(userId).getEmail();
+        }
         Order order = orderService.createJoinToActivityOrder(email, activityId);
         if (order != null) {
             if (AuthUtils.hasAuthority(request, Role.ADMIN)) {
